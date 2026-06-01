@@ -10,7 +10,6 @@ public class ScorerRotationSubsystem extends SubsystemBase {
     private final Servo rotationServo;
     private final Telemetry telemetry;
 
-    // Constants for servo positions - adjust these based on physical limits
     public static final double CENTER = 0.5;
     public static final double LEFT_LIMIT = 0.0;
     public static final double RIGHT_LIMIT = 1.0;
@@ -19,7 +18,6 @@ public class ScorerRotationSubsystem extends SubsystemBase {
         this.rotationServo = hardwareMap.get(Servo.class, "scorerRotationServo");
         this.telemetry = telemetry;
         
-        // Initialize at center
         setRotation(CENTER);
         
         register();
