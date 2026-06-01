@@ -18,6 +18,7 @@ public class TeleOp extends OpMode {
     private MecanumDriveSubsystem mecanumDriveSubsystem;
     private GamepadEx driver;
     private IMU imu;
+    private DriveCommand driveCommand;
 
     @Override
     public void init() {
@@ -38,5 +39,28 @@ public class TeleOp extends OpMode {
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
         );
+    }
+
+    @Override
+    public void init_loop() {
+        driver.readButtons();
+        if (driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
+            driveCommand.changeTeam("red");
+        } else if (driver.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
+            driveCommand.changeTeam("blue");
+        }
+    }
+
+    @Override
+    public void loop() {
+        driver.readButtons();
+        CommandScheduler.getInstance().run();
+        telemetry.update();
+    }
+
+    @Override
+    public void stop() {
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().reset();
     }
 }
