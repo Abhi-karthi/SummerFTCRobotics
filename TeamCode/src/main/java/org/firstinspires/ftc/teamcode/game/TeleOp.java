@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.game;
 
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -10,17 +8,16 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.commands.*;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.*;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends OpMode {
     private MecanumDriveSubsystem mecanumDriveSubsystem;
-    private ShooterSubsystem shooterSubsystem;
+    private IntakeSubsystem intakeSubsystem;
     private GamepadEx driver;
     private IMU imu;
     private DriveCommand driveCommand;
-    private ShooterCommand shooterCommand;
+    private IntakeCommand intakeCommand;
     @Override
     public void init() {
         imu = hardwareMap.get(IMU.class, "imu");
@@ -34,18 +31,18 @@ public class TeleOp extends OpMode {
         imu.initialize(imuParams);
 
         mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
-        shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
+        intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
 
         driver = new GamepadEx(gamepad1);
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
-        shooterCommand = new ShooterCommand(driver, shooterSubsystem);
+        intakeCommand = new IntakeCommand(driver, intakeSubsystem);
         
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
         );
 
-        shooterSubsystem.setDefaultCommand(
-                shooterCommand
+        intakeSubsystem.setDefaultCommand(
+                intakeCommand
         );
     }
 

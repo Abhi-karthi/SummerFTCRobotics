@@ -4,16 +4,15 @@ import com.seattlesolvers.solverslib.command.CommandBase;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
-import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
-import org.firstinspires.ftc.teamcode.subsystems.ShooterSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
 
-public class ShooterCommand extends CommandBase{
-    private final ShooterSubsystem shooterSubsystem;
+public class IntakeCommand extends CommandBase{
+    private final IntakeSubsystem intakeSubsystem;
     private final GamepadEx gamepad;
 
-    public ShooterCommand(GamepadEx gamepad, ShooterSubsystem shoot) {
+    public IntakeCommand(GamepadEx gamepad, IntakeSubsystem shoot) {
         this.gamepad = gamepad;
-        shooterSubsystem = shoot;
+        intakeSubsystem = shoot;
         addRequirements(shoot);
     }
 
@@ -22,13 +21,13 @@ public class ShooterCommand extends CommandBase{
         gamepad.readButtons();
 
         if (gamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
-            shooterSubsystem.shoot(1.0, 1.0);
+            intakeSubsystem.intake(1.0, 1.0);
         } else {
-            shooterSubsystem.shoot(0, 0);
+            intakeSubsystem.intake(0, 0);
         }
     }
 
     @Override
-    public void end(boolean interrupted) { shooterSubsystem.shoot(0, 0); }
+    public void end(boolean interrupted) { intakeSubsystem.intake(0, 0); }
 
 }
