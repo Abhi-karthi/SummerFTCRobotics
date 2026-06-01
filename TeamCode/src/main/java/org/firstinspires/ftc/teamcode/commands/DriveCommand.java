@@ -22,5 +22,15 @@ public class DriveCommand extends CommandBase{
         double x = gamepad.getLeftX();
         double y = -gamepad.getLeftY();
         double rotation = gamepad.getRightX();
+
+        if (gamepad.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
+            drive.resetIMU();
+        }
+
+        drive.drive(x, y, rotation);
     }
+
+    @Override
+    public void end(boolean interrupted) { drive.drive(0, 0, 0); }
+
 }
