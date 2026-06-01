@@ -34,7 +34,7 @@ public class MecanumDriveSubsystem extends SubsystemBase{
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        this.imu = imu_;
+        this.imu = imu;
         this.telemetry = telemetry;
 
         register();
