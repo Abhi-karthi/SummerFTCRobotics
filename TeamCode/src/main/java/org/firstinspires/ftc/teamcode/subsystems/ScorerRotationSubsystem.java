@@ -18,7 +18,6 @@ public class ScorerRotationSubsystem extends SubsystemBase {
         this.rotationServo = hardwareMap.get(Servo.class, "scorerRotationServo");
         this.telemetry = telemetry;
         
-        // Initialize at center
         setRotation(CENTER);
         
         register();
