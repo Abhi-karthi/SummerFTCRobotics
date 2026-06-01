@@ -10,18 +10,17 @@ public class IntakeCommand extends CommandBase{
     private final IntakeSubsystem intakeSubsystem;
     private final GamepadEx gamepad;
 
-    public IntakeCommand(GamepadEx gamepad, IntakeSubsystem shoot) {
+    public IntakeCommand(GamepadEx gamepad, IntakeSubsystem intakeSubsystem) {
         this.gamepad = gamepad;
-        intakeSubsystem = shoot;
-        addRequirements(shoot);
+        this.intakeSubsystem = intakeSubsystem;
+        addRequirements(intakeSubsystem);
     }
 
     @Override
     public void execute() {
-        gamepad.readButtons();
-
-        if (gamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
-            intakeSubsystem.intake(1.0, 1.0);
+        double triggerValue = gamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
+        if (triggerValue > 0.5) {
+            intakeSubsystem.intake(triggerValue, triggerValue);
         } else {
             intakeSubsystem.intake(0, 0);
         }
