@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Constants {
 
     //Motor Declerations
-    intake1 = hardwareMap.get(DcMotor.class, "intake1");
-    intake2 = hardwareMap.get(DcMotor.class, "intake2");
-    shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
-    shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
+    DcMotor intake1 = hardwareMap.get(DcMotor.class, "intake1");
+    DcMotor intake2 = hardwareMap.get(DcMotor.class, "intake2");
+    DcMotor shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
+    DcMotor shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
 
     intake1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     intake2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -19,9 +19,9 @@ public class Constants {
     shooter2.setDirection(DcMotor.Direction.REVERSE);
 
     //Servo Declerations
-    servoHood = hardwareMap.get(Servo.class, "hood");
-    servoTurret = hardwareMap.get(Servo.class, "turret");
-    servoGate = hardwareMap.get(Servo.class, "gate");
+    Servo servoHood = hardwareMap.get(Servo.class, "hood");
+    Servo servoTurret = hardwareMap.get(Servo.class, "turret");
+    Servo servoGate = hardwareMap.get(Servo.class, "gate");
 
     //Servo Positions
     //TODO: Test for servo positions
