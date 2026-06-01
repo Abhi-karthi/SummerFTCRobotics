@@ -36,7 +36,9 @@ public class Teleop extends OpMode {
         mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
         shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
 
+
         driver = new GamepadEx(gamepad1);
+        driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
 
         DriveCommand driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "blue");
         ShooterCommand shooterCommand = new ShooterCommand(driver, shooterSubsystem);
