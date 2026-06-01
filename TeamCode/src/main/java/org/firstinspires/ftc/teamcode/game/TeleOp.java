@@ -23,6 +23,7 @@ public class TeleOp extends OpMode {
     private IntakeCommand intakeCommand;
     private ScoringCommand scoringCommand;
     private ScorerRotationCommand scorerRotationCommand;
+    private LimelightCommand limelightCommand;
     @Override
     public void init() {
         imu = hardwareMap.get(IMU.class, "imu");
@@ -45,7 +46,8 @@ public class TeleOp extends OpMode {
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
         intakeCommand = new IntakeCommand(driver, intakeSubsystem);
         scoringCommand = new ScoringCommand(driver, scoringSubsystem);
-        scorerRotationCommand = new ScorerRotationCommand(driver, scorerRotationSubsystem, limelightSubsystem);
+        scorerRotationCommand = new ScorerRotationCommand(driver, scorerRotationSubsystem);
+        limelightCommand = new LimelightCommand(limelightSubsystem, scorerRotationSubsystem);
 
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
@@ -62,6 +64,9 @@ public class TeleOp extends OpMode {
         scorerRotationSubsystem.setDefaultCommand(
                 scorerRotationCommand
         );
+
+        driver.getGamepadButton(GamepadKeys.Button.A)
+                .whileHeld(limelightCommand);
     }
 
     @Override
