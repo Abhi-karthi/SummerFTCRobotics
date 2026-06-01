@@ -34,7 +34,9 @@ public class TeleOp extends OpMode {
 
         mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
 
+
         driver = new GamepadEx(gamepad1);
+        driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
 
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
