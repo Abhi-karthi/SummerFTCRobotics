@@ -1,2 +1,42 @@
 package org.firstinspires.ftc.teamcode.game;
 
+import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.Pose;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.seattlesolvers.solverslib.command.CommandScheduler;
+import com.seattlesolvers.solverslib.gamepad.GamepadEx;
+import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
+
+import org.firstinspires.ftc.teamcode.commands.*;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.subsystems.*;
+
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
+public class TeleOp extends OpMode {
+    private MecanumDriveSubsystem mecanumDriveSubsystem;
+    private GamepadEx driver;
+    private IMU imu;
+
+    @Override
+    public void init() {
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters imuParams = new IMU.Parameters(
+                new RevHubOrientationOnRobot (
+                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                        RevHubOrientationOnRobot.UsbFacingDirection.UP
+                )
+        );
+
+        imu.initialize(imuParams);
+
+        mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
+
+        driver = new GamepadEx(gamepad1);
+
+        mecanumDriveSubsystem.setDefaultCommand(
+                driveCommand
+        );
+    }
+}
