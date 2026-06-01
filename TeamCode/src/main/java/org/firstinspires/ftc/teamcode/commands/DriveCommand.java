@@ -21,7 +21,7 @@ public class DriveCommand extends CommandBase{
     public void execute() {
         gamepad.readButtons();
         double x = gamepad.getLeftX();
-        double y = -gamepad.getLeftY();
+        double y = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
 
         if (gamepad.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {

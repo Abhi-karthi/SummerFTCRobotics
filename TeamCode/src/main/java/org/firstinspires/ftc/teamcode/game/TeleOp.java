@@ -16,30 +16,36 @@ import org.firstinspires.ftc.teamcode.subsystems.*;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends OpMode {
     private MecanumDriveSubsystem mecanumDriveSubsystem;
+    private ShooterSubsystem shooterSubsystem;
     private GamepadEx driver;
     private IMU imu;
     private DriveCommand driveCommand;
-
+    private ShooterCommand shooterCommand;
     @Override
     public void init() {
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters imuParams = new IMU.Parameters(
                 new RevHubOrientationOnRobot (
-                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                        RevHubOrientationOnRobot.UsbFacingDirection.UP
+                        RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                        RevHubOrientationOnRobot.UsbFacingDirection.DOWN
                 )
         );
 
         imu.initialize(imuParams);
 
         mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
-
+        shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
 
         driver = new GamepadEx(gamepad1);
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
-
+        shooterCommand = new ShooterCommand(driver, shooterSubsystem);
+        
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
+        );
+
+        shooterSubsystem.setDefaultCommand(
+                shooterCommand
         );
     }
 
