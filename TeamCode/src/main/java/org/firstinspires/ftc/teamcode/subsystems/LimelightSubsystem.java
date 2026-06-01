@@ -17,7 +17,7 @@ public class LimelightSubsystem extends SubsystemBase {
 
         limelight.pipelineSwitch(0);
         limelight.start();
-        
+
         register();
     }
 
@@ -47,7 +47,7 @@ public class LimelightSubsystem extends SubsystemBase {
         LLResult result = getLatestResult();
         return result != null && result.isValid();
     }
-    
+
     public void stop() {
         limelight.stop();
     }
