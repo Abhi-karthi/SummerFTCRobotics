@@ -19,7 +19,7 @@ public class ScoringSubsystem extends SubsystemBase {
 
         shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        shooter1.setDirection(DcMotor.Direction.REVERSE);
+        shooter2.setDirection(DcMotor.Direction.REVERSE);
         shooter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
