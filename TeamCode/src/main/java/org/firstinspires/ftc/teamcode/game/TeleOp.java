@@ -69,6 +69,9 @@ public class TeleOp extends OpMode {
 
         driver.getGamepadButton(GamepadKeys.Button.A)
                 .whileHeld(limelightCommand);
+
+        driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(() -> mecanumDriveSubsystem.resetIMU());
     }
 
     @Override

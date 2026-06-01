@@ -17,8 +17,6 @@ public class IntakeSubsystem extends SubsystemBase {
         intake1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake1.setDirection(DcMotor.Direction.REVERSE);
-        intake1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intake2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         this.telemetry = telemetry;
 
