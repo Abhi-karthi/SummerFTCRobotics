@@ -1,0 +1,50 @@
+package org.firstinspires.ftc.teamcode.subsystems;
+
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.seattlesolvers.solverslib.command.SubsystemBase;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+/**
+ * Subsystem to control the horizontal rotation of the scorer/shooter using a servo.
+ */
+public class ScorerRotationSubsystem extends SubsystemBase {
+    private final Servo rotationServo;
+    private final Telemetry telemetry;
+
+    // Constants for servo positions - adjust these based on physical limits
+    public static final double CENTER = 0.5;
+    public static final double LEFT_LIMIT = 0.0;
+    public static final double RIGHT_LIMIT = 1.0;
+
+    public ScorerRotationSubsystem(HardwareMap hardwareMap, Telemetry telemetry) {
+        this.rotationServo = hardwareMap.get(Servo.class, "scorerRotationServo");
+        this.telemetry = telemetry;
+        
+        // Initialize at center
+        setRotation(CENTER);
+        
+        register();
+    }
+
+    @Override
+    public void periodic() {
+        telemetry.addData("Scorer Rotation Position", rotationServo.getPosition());
+    }
+
+    /**
+     * Sets the position of the rotation servo.
+     * @param position value between 0.0 and 1.0
+     */
+    public void setRotation(double position) {
+        rotationServo.setPosition(position);
+    }
+
+    /**
+     * Centers the scorer.
+     */
+    public void center() {
+        setRotation(CENTER);
+    }
+}
