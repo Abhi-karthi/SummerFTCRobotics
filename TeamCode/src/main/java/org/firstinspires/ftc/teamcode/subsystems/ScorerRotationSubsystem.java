@@ -6,9 +6,6 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-/**
- * Subsystem to control the horizontal rotation of the scorer/shooter using a servo.
- */
 public class ScorerRotationSubsystem extends SubsystemBase {
     private final Servo rotationServo;
     private final Telemetry telemetry;
@@ -33,17 +30,10 @@ public class ScorerRotationSubsystem extends SubsystemBase {
         telemetry.addData("Scorer Rotation Position", rotationServo.getPosition());
     }
 
-    /**
-     * Sets the position of the rotation servo.
-     * @param position value between 0.0 and 1.0
-     */
     public void setRotation(double position) {
         rotationServo.setPosition(position);
     }
 
-    /**
-     * Centers the scorer.
-     */
     public void center() {
         setRotation(CENTER);
     }
