@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.*;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
-public class TeleOp extends OpMode {
+public class Teleop extends OpMode {
     private MecanumDriveSubsystem mecanumDriveSubsystem;
     private GamepadEx driver;
     private IMU imu;
@@ -35,8 +35,15 @@ public class TeleOp extends OpMode {
 
         driver = new GamepadEx(gamepad1);
 
+        DriveCommand driveCommand = new DriveCommand(driver, mecanumDriveSubsystem);
+
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
         );
+    }
+
+    @Override
+    public void loop() {
+        CommandScheduler.getInstance().run();
     }
 }
