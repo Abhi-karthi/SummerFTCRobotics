@@ -14,10 +14,12 @@ import org.firstinspires.ftc.teamcode.subsystems.*;
 public class TeleOp extends OpMode {
     private MecanumDriveSubsystem mecanumDriveSubsystem;
     private IntakeSubsystem intakeSubsystem;
+    private ScoringSubsystem scoringSubsystem;
     private GamepadEx driver;
     private IMU imu;
     private DriveCommand driveCommand;
     private IntakeCommand intakeCommand;
+    private ScoringCommand scoringCommand;
     @Override
     public void init() {
         imu = hardwareMap.get(IMU.class, "imu");
@@ -32,17 +34,23 @@ public class TeleOp extends OpMode {
 
         mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
         intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
+        scoringSubsystem = new ScoringSubsystem(hardwareMap, telemetry);
 
         driver = new GamepadEx(gamepad1);
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
         intakeCommand = new IntakeCommand(driver, intakeSubsystem);
-        
+        scoringCommand = new ScoringCommand(driver, scoringSubsystem);
+
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
         );
 
         intakeSubsystem.setDefaultCommand(
                 intakeCommand
+        );
+
+        scoringSubsystem.setDefaultCommand(
+                scoringCommand
         );
     }
 
