@@ -16,6 +16,7 @@ public class TeleOp extends OpMode {
     private IntakeSubsystem intakeSubsystem;
     private ScoringSubsystem scoringSubsystem;
     private ScorerRotationSubsystem scorerRotationSubsystem;
+    private LimelightSubsystem limelightSubsystem;
     private GamepadEx driver;
     private IMU imu;
     private DriveCommand driveCommand;
@@ -38,12 +39,13 @@ public class TeleOp extends OpMode {
         intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
         scoringSubsystem = new ScoringSubsystem(hardwareMap, telemetry);
         scorerRotationSubsystem = new ScorerRotationSubsystem(hardwareMap, telemetry);
+        limelightSubsystem = new LimelightSubsystem(hardwareMap, telemetry);
 
         driver = new GamepadEx(gamepad1);
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
         intakeCommand = new IntakeCommand(driver, intakeSubsystem);
         scoringCommand = new ScoringCommand(driver, scoringSubsystem);
-        scorerRotationCommand = new ScorerRotationCommand(driver, scorerRotationSubsystem);
+        scorerRotationCommand = new ScorerRotationCommand(driver, scorerRotationSubsystem, limelightSubsystem);
 
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
@@ -81,6 +83,9 @@ public class TeleOp extends OpMode {
 
     @Override
     public void stop() {
+        if (limelightSubsystem != null) {
+            limelightSubsystem.stop();
+        }
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
     }

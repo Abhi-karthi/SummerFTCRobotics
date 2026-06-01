@@ -3,26 +3,39 @@ package org.firstinspires.ftc.teamcode.commands;
 import com.seattlesolvers.solverslib.command.CommandBase;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import org.firstinspires.ftc.teamcode.subsystems.ScorerRotationSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.LimelightSubsystem;
 
-/**
- * Command to control the scorer's rotation using the gamepad's right stick X axis.
- */
 public class ScorerRotationCommand extends CommandBase {
     private final ScorerRotationSubsystem rotationSubsystem;
+    private final LimelightSubsystem limelightSubsystem;
     private final GamepadEx gamepad;
 
-    public ScorerRotationCommand(GamepadEx gamepad, ScorerRotationSubsystem rotationSubsystem) {
+    private static final double AUTO_AIM_KP = 0.01; 
+
+    public ScorerRotationCommand(GamepadEx gamepad, 
+                                 ScorerRotationSubsystem rotationSubsystem,
+                                 LimelightSubsystem limelightSubsystem) {
         this.gamepad = gamepad;
         this.rotationSubsystem = rotationSubsystem;
+        this.limelightSubsystem = limelightSubsystem;
         addRequirements(rotationSubsystem);
     }
 
     @Override
     public void execute() {
-        // Map stick input (-1 to 1) to servo range (0 to 1)
-        // Stick left (-1) -> 0.0, Center (0) -> 0.5, Stick right (1) -> 1.0
-        double stickX = gamepad.getRightX();
-        double servoPosition = (stickX + 1.0) / 2.0;
+        double servoPosition;
+
+        if (limelightSubsystem.hasTarget()) {
+            double tx = limelightSubsystem.getTx();
+            
+            servoPosition = ScorerRotationSubsystem.CENTER + (tx * AUTO_AIM_KP);
+            
+            servoPosition = Math.max(ScorerRotationSubsystem.LEFT_LIMIT, 
+                            Math.min(ScorerRotationSubsystem.RIGHT_LIMIT, servoPosition));
+        } else {
+            double stickX = gamepad.getRightX();
+            servoPosition = (stickX + 1.0) / 2.0;
+        }
         
         rotationSubsystem.setRotation(servoPosition);
     }
