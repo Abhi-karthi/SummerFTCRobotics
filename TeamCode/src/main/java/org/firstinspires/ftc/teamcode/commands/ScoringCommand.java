@@ -19,9 +19,7 @@ public class ScoringCommand extends CommandBase{
 
     @Override
     public void execute() {
-        gamepad.readButtons();
-
-        if (gamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
+        if (gamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.5) {
             shooterSubsystem.shoot(0.2, 0.2);
         } else {
             shooterSubsystem.shoot(0, 0);
