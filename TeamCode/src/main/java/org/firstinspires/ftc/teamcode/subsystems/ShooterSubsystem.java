@@ -1,20 +1,16 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class ShooterSubsystem extends SubsystemBase {
-    private final IMU imu;
     private final DcMotor shooter1, shooter2;
     private final Telemetry telemetry;
 
-    public ShooterSubsystem(HardwareMap hardwareMap, IMU imu_, Telemetry telemetry) {
+    public ShooterSubsystem(HardwareMap hardwareMap, Telemetry telemetry) {
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
 
@@ -24,7 +20,6 @@ public class ShooterSubsystem extends SubsystemBase {
         shooter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        this.imu = imu_;
         this.telemetry = telemetry;
 
         register();

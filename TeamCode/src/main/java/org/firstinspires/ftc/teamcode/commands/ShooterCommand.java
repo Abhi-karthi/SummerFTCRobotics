@@ -19,8 +19,6 @@ public class ShooterCommand extends CommandBase{
 
     @Override
     public void execute() {
-        gamepad.readButtons();
-
         if (gamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
             shooterSubsystem.shoot(1.0, 1.0);
         } else {
