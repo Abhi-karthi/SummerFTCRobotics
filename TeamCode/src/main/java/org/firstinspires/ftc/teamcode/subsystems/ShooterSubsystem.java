@@ -10,13 +10,11 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class ShooterSubsystem extends SubsystemBase {
-    IMU imu;
-    DcMotor shooter1, shooter2, backLeft, backRight;
+    private final IMU imu;
+    private final DcMotor shooter1, shooter2;
+    private final Telemetry telemetry;
 
-
-    private Telemetry telemetry;
-
-    public ShooterSubsystem(HardwareMap hardwareMap, IMU imu_) {
+    public ShooterSubsystem(HardwareMap hardwareMap, IMU imu_, Telemetry telemetry) {
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
 
@@ -25,8 +23,6 @@ public class ShooterSubsystem extends SubsystemBase {
         shooter1.setDirection(DcMotor.Direction.REVERSE);
         shooter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         this.imu = imu_;
         this.telemetry = telemetry;
@@ -40,8 +36,9 @@ public class ShooterSubsystem extends SubsystemBase {
         telemetry.addData("shooter2MotorPower", getShooter2MotorPower());
     }
 
-    public void resetIMU() {
-        imu.resetYaw();
+    public void shoot(double shooter1Power, double shooter2Power) {
+        shooter1.setPower(shooter1Power);
+        shooter2.setPower(shooter2Power);
     }
 
     public double getShooter1MotorPower() { return shooter1.getPower(); }
