@@ -16,11 +16,13 @@ public class Constants {
     public static final double HOOD_TOP = 0.5;
     public static final double HOOD_BOTTOM = 0;
     public static final double HOOD_CENTER = 0.25;
-    public static final double HOOD_ACCURACY_THRESHOLD_TICKS = 0.1;
 
     public static final double GATE_OPEN = 0.5;
     public static final double GATE_CLOSED = 0;
-    public static final double GATE_ACCURACY_THRESHOLD_TICKS = 0.03;
+    public static final double GATE_OPEN_TIME = 0.3;
+    public static final double GATE_CLOSED_TIME = 0.25;
+
+    public static final double INTAKE_RUNTIME = 0.3;
 
     public static final RevHubOrientationOnRobot.UsbFacingDirection controlHubUSBFacingDirection = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;
     public static final RevHubOrientationOnRobot.LogoFacingDirection controlHubLogoFacingDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
