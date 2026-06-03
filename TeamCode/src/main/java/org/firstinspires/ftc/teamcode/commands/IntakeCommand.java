@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.commands;
 
+import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER;
+
 import com.seattlesolvers.solverslib.command.CommandBase;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
@@ -20,7 +22,7 @@ public class IntakeCommand extends CommandBase {
     public void execute() {
         double triggerValue = gamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
         if (triggerValue > 0.5) {
-            intakeSubsystem.intake(triggerValue, triggerValue);
+            intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER);
         } else {
             intakeSubsystem.intake(0, 0);
         }
