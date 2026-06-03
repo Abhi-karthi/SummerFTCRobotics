@@ -6,7 +6,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
 
-public class IntakeCommand extends CommandBase{
+public class IntakeCommand extends CommandBase {
     private final IntakeSubsystem intakeSubsystem;
     private final GamepadEx gamepad;
 

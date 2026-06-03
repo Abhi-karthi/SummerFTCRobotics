@@ -47,7 +47,7 @@ public class TeleOp extends OpMode {
         driver = new GamepadEx(gamepad1);
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
         intakeCommand = new IntakeCommand(driver, intakeSubsystem);
-        scoringCommand = new ScoringCommand(driver, scoringSubsystem);
+        scoringCommand = new ScoringCommand(driver, scoringSubsystem, intakeSubsystem);
         scorerRotationCommand = new ScorerRotationCommand(driver, scorerRotationSubsystem);
         limelightCommand = new LimelightCommand(limelightSubsystem, scorerRotationSubsystem);
 

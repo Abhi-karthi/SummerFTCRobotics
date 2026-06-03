@@ -16,10 +16,21 @@ public class Constants {
     public static final double HOOD_TOP = 0.5;
     public static final double HOOD_BOTTOM = 0;
     public static final double HOOD_CENTER = 0.25;
+    public static final double HOOD_ACCURACY_THRESHOLD_TICKS = 0.1;
 
     public static final double GATE_OPEN = 0.5;
     public static final double GATE_CLOSED = 0;
+    public static final double GATE_ACCURACY_THRESHOLD_TICKS = 0.03;
 
     public static final RevHubOrientationOnRobot.UsbFacingDirection controlHubUSBFacingDirection = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;
     public static final RevHubOrientationOnRobot.LogoFacingDirection controlHubLogoFacingDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+
+    // TODO: Correct motor power
+    public static final double FLYWHEEL_MOTOR_POWER = 0.2;
+    public static final double FLYWHEEL_MOTOR_WAITING_TIME = 0.5;  // seconds
+    public static final double FLYWHEEL_MOTOR_WAITING_TIME_2 = 0.5;
+
+    // TODO: TUNE LIMELIGHT SOMEHOW
+    public static final double DEGREE_OFFSET_TO_SERVO_TICKS = 1.5;
+    public static final double SHOOTER_ACCURACY_THRESHOLD_TICKS = 1.0;
 }
