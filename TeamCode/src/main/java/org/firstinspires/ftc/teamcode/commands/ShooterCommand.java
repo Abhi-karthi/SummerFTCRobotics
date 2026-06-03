@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.commands;
 
+import static org.firstinspires.ftc.teamcode.util.Constants.CENTER_TURRET;
 import static org.firstinspires.ftc.teamcode.util.Constants.DEGREE_OFFSET_TO_SERVO_TICKS;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_POWER;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_WAITING_TIME;
@@ -51,7 +52,7 @@ public class ShooterCommand extends CommandBase {
         switch (currentShooterState) {
             case RUN_MOTOR: // aiming turret and running shooter motors at the same time and hood
                 shooterSubsystem.setShooterMotorPower(FLYWHEEL_MOTOR_POWER);
-                shooterSubsystem.setTurretServoPosition(limelightSubsystem.getTx()*DEGREE_OFFSET_TO_SERVO_TICKS);
+                shooterSubsystem.setTurretServoPosition(CENTER_TURRET + limelightSubsystem.getTx()*DEGREE_OFFSET_TO_SERVO_TICKS);
                 shooterSubsystem.setHoodServoPosition(limelightSubsystem.calculateHoodPositionTicks());
                 if (shooterElapsedTime.seconds() >= FLYWHEEL_MOTOR_WAITING_TIME) {
                     shooterElapsedTime.reset();
@@ -91,7 +92,7 @@ public class ShooterCommand extends CommandBase {
                 break;
             case RUN_MOTOR_2:
                 shooterSubsystem.setShooterMotorPower(FLYWHEEL_MOTOR_POWER);
-                shooterSubsystem.setTurretServoPosition(limelightSubsystem.getTx()*DEGREE_OFFSET_TO_SERVO_TICKS);
+                shooterSubsystem.setTurretServoPosition(CENTER_TURRET + limelightSubsystem.getTx()*DEGREE_OFFSET_TO_SERVO_TICKS);
                 shooterSubsystem.setHoodServoPosition(limelightSubsystem.calculateHoodPositionTicks());
                 if (shooterElapsedTime.seconds() >= FLYWHEEL_MOTOR_WAITING_TIME_2) {
                     shooterElapsedTime.reset();
