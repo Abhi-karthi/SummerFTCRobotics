@@ -22,7 +22,7 @@ public class BluePaths {
                 .pathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Pose(56.000, 8.000),
+                                new Pose(55.333, 9.000),
                                 new Pose(70.500, 25.333)
                         )
                 )
