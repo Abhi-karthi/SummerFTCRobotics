@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.game;
 
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -23,6 +25,8 @@ public class TeleOp extends OpMode {
     private DriveCommand driveCommand;
     private IntakeCommand intakeCommand;
     private ShooterCommand shooterCommand;
+    private TelemetryManager panelsTelemetry;
+
     @Override
     public void init() {
         imu = hardwareMap.get(IMU.class, "imu");
