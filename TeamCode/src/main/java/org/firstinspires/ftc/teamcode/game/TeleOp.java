@@ -6,6 +6,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
+import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
@@ -23,9 +24,7 @@ public class TeleOp extends OpMode {
     private GamepadEx driver;
     private IMU imu;
     private DriveCommand driveCommand;
-    private IntakeCommand intakeCommand;
     private ShooterCommand shooterCommand;
-    private TelemetryManager panelsTelemetry;
 
     @Override
     public void init() {
@@ -46,16 +45,22 @@ public class TeleOp extends OpMode {
 
         driver = new GamepadEx(gamepad1);
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
-        intakeCommand = new IntakeCommand(driver, intakeSubsystem);
         shooterCommand = new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem);
 
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
         );
 
-        intakeSubsystem.setDefaultCommand(
-                intakeCommand
-        );
+        intakeSubsystem.setDefaultCommand(new RunCommand(
+                () -> {
+                    if (driver.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.5) {
+                        intakeSubsystem.intake(Constants.INTAKE_MOTOR_POWER, Constants.INTAKE_MOTOR_POWER);
+                    } else {
+                        intakeSubsystem.intake(0, 0);
+                    }
+                },
+                intakeSubsystem
+        ));
 
         driver.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(shooterCommand);
