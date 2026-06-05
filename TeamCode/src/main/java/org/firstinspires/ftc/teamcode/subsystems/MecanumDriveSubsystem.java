@@ -7,12 +7,14 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.util.PoseStorage;
 
 public class MecanumDriveSubsystem extends SubsystemBase{
     IMU imu;
     DcMotor frontLeft, frontRight, backLeft, backRight;
 
     private final Telemetry telemetry;
+    private double headingOffsetRadians; // from auto
 
     public MecanumDriveSubsystem(HardwareMap hardwareMap, IMU imu, Telemetry telemetry) {
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -26,6 +28,10 @@ public class MecanumDriveSubsystem extends SubsystemBase{
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
+
+        headingOffsetRadians = PoseStorage.currentHeadingRadians;
+
+        PoseStorage.currentHeadingRadians = 0;
 
         this.imu = imu;
         this.telemetry = telemetry;
@@ -42,7 +48,7 @@ public class MecanumDriveSubsystem extends SubsystemBase{
     }
 
     public void drive(double x, double y, double rotation) {
-        double headingRadians = -(imu.getRobotYawPitchRollAngles().getYaw()) * Math.PI / 180.0;
+        double headingRadians = (-(imu.getRobotYawPitchRollAngles().getYaw()) * Math.PI / 180.0)+headingOffsetRadians;
 
         double rotatedX = x * Math.cos(headingRadians) - y * Math.sin(headingRadians);
         double rotatedY = x * Math.sin(headingRadians) + y * Math.cos(headingRadians);
@@ -66,6 +72,7 @@ public class MecanumDriveSubsystem extends SubsystemBase{
 
     public void resetIMU() {
         imu.resetYaw();
+        headingOffsetRadians = 0;
     }
 
     public double getBackLeftMotorPower() { return backLeft.getPower(); }

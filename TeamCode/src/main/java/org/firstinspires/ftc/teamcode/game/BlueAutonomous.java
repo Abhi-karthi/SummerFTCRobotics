@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.game;
 
+import static org.firstinspires.ftc.teamcode.util.Constants.IMU_DIRECTION_OFFSET_BLUE;
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER;
 import static org.firstinspires.ftc.teamcode.util.Constants.BLUE_AUTONOMOUS_INITIAL_POS;
 
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.LimelightSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ShooterSubsystem;
 import org.firstinspires.ftc.teamcode.util.BluePaths;
+import org.firstinspires.ftc.teamcode.util.PoseStorage;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Blue Auto")
 public class BlueAutonomous extends OpMode {
@@ -76,6 +78,7 @@ public class BlueAutonomous extends OpMode {
 
     @Override
     public void stop() {
+        PoseStorage.currentHeadingRadians = follower.getPose().getHeading() + IMU_DIRECTION_OFFSET_BLUE;
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
     }

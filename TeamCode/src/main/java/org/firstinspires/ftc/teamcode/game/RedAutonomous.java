@@ -1,20 +1,17 @@
 package org.firstinspires.ftc.teamcode.game;
 
+import static org.firstinspires.ftc.teamcode.util.Constants.IMU_DIRECTION_OFFSET_RED;
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER;
 import static org.firstinspires.ftc.teamcode.util.Constants.RED_AUTONOMOUS_INITIAL_POS;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.CommandScheduler;
-import com.seattlesolvers.solverslib.command.ParallelCommandGroup;
 import com.seattlesolvers.solverslib.command.ParallelDeadlineGroup;
-import com.seattlesolvers.solverslib.command.RunCommand;
 import com.seattlesolvers.solverslib.command.SequentialCommandGroup;
 import com.seattlesolvers.solverslib.command.StartEndCommand;
-import com.seattlesolvers.solverslib.command.WaitCommand;
 import com.seattlesolvers.solverslib.pedroCommand.FollowPathCommand;
 
 import org.firstinspires.ftc.teamcode.commands.ShooterCommand;
@@ -23,10 +20,10 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.LimelightSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ShooterSubsystem;
 import org.firstinspires.ftc.teamcode.util.RedPaths;
+import org.firstinspires.ftc.teamcode.util.PoseStorage;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Red Auto")
 public class RedAutonomous extends OpMode {
-
     private LimelightSubsystem limelightSubsystem;
     private ShooterSubsystem shooterSubsystem;
     private IntakeSubsystem intakeSubsystem;
@@ -81,6 +78,7 @@ public class RedAutonomous extends OpMode {
 
     @Override
     public void stop() {
+        PoseStorage.currentHeadingRadians = follower.getPose().getHeading() + IMU_DIRECTION_OFFSET_RED;
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
     }

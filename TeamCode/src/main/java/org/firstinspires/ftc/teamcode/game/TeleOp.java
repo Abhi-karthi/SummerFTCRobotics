@@ -86,10 +86,9 @@ public class TeleOp extends OpMode {
 
     @Override
     public void stop() {
-        if (limelightSubsystem != null) {
-            limelightSubsystem.stop();
-        }
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
+        if (limelightSubsystem == null) return;
+        limelightSubsystem.stop();
     }
 }

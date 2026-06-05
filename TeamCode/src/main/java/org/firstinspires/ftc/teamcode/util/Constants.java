@@ -3,10 +3,6 @@ package org.firstinspires.ftc.teamcode.util;
 import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 @Configurable
 public class Constants {
@@ -43,4 +39,6 @@ public class Constants {
 
     public static Pose RED_AUTONOMOUS_INITIAL_POS = new Pose(86.166, 9, Math.toRadians(90));
     public static Pose BLUE_AUTONOMOUS_INITIAL_POS = new Pose(55.333, 9, Math.toRadians(90));
+    public static double IMU_DIRECTION_OFFSET_BLUE = -Math.toRadians(90);
+    public static double IMU_DIRECTION_OFFSET_RED = Math.toRadians(90);
 }
