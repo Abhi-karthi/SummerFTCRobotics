@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.game;
 
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER;
+import static org.firstinspires.ftc.teamcode.util.Constants.RED_AUTONOMOUS_INITIAL_POS;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -31,7 +32,6 @@ public class RedAutonomous extends OpMode {
     private IntakeSubsystem intakeSubsystem;
     private Follower follower;
     private RedPaths paths;
-    private boolean pathStarted;
 
     private SequentialCommandGroup autonomousRoutine;
 
@@ -43,11 +43,9 @@ public class RedAutonomous extends OpMode {
 
 
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(55.333, 9, Math.toRadians(90)));
+        follower.setStartingPose(RED_AUTONOMOUS_INITIAL_POS);
 
         paths = new RedPaths(follower);
-        pathStarted = false;
-
         autonomousRoutine = new SequentialCommandGroup(
                 new FollowPathCommand(follower, paths.INITIAL_TO_SCORE_1),
                 new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem),

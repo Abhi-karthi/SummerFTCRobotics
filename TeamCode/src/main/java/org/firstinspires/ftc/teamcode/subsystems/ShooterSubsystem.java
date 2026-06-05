@@ -38,6 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
         telemetry.addData("Scorer Rotation Position", shooterGateServo.getPosition());
         telemetry.addData("HoodServoPower:", getHoodServoPosition());
         telemetry.addData("TurretServoPosition:", getTurretServoPosition());
+        telemetry.addData("Shooter gate servo position: ", getShooterGateServoPosition());
     }
 
     public double getShooter1MotorPower() { return shooter1.getPower(); }

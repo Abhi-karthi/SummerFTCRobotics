@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.util;
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -39,4 +40,7 @@ public class Constants {
     public static double SHOOTER_ACCURACY_THRESHOLD_TICKS = 1.0;
 
     public static double INTAKE_MOTOR_POWER = 0.3;
+
+    public static Pose RED_AUTONOMOUS_INITIAL_POS = new Pose(86.166, 9, Math.toRadians(90));
+    public static Pose BLUE_AUTONOMOUS_INITIAL_POS = new Pose(55.333, 9, Math.toRadians(90));
 }
