@@ -13,6 +13,8 @@ public class Constants {
     public static double RIGHT_LIMIT_TURRET = 0.25;
 
     public static double HOOD_TOP = 0.5;
+    public static double HOOD_MID_1 = 0.125;
+    public static double HOOD_MID_2 = 0.385;
     public static double HOOD_BOTTOM = 0;
     public static double HOOD_CENTER = 0.25;
 
@@ -34,7 +36,6 @@ public class Constants {
     // TODO: TUNE LIMELIGHT SOMEHOW
     public static double DEGREE_OFFSET_TO_SERVO_TICKS = 1.5;
     public static double SHOOTER_ACCURACY_THRESHOLD_TICKS = 1.0;
-
     public static double INTAKE_MOTOR_POWER = 0.3;
 
     public static Pose RED_AUTONOMOUS_INITIAL_POS = new Pose(86.166, 9, Math.toRadians(90));
