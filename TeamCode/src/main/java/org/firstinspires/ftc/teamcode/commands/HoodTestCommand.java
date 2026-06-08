@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.commands;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_POWER;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_WAITING_TIME;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED;
+import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED_TIME;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_OPEN;
 import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_BOTTOM;
 import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_CENTER;
@@ -10,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_MID_1;
 import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_MID_2;
 import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_TOP;
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER;
+import static org.firstinspires.ftc.teamcode.util.Constants.GATE_OPEN_TIME;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.CommandBase;
@@ -26,12 +28,13 @@ public class HoodTestCommand extends CommandBase {
     private double currentPosition;
     private IntakeSubsystem intakeSubsystem;
     private ElapsedTime motorTimer;
-    private enum ShooterTestState {IDLE, MOTOR_RUN, INTAKE_START, OPEN_GATE, GATE_OPEN, GATE_CLOSE};
-
+    private enum ShooterTestState {IDLE, MOTOR_RUN, INTAKE_START, GATE_OPEN, GATE_CLOSE};
+    private ShooterTestState currentShooterState;
     public HoodTestCommand(GamepadEx gamepad, ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.gamepad = gamepad;
         this.shooterSubsystem = shooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
+        this.currentShooterState = ShooterTestState.IDLE;
         positions = new double[]{HOOD_BOTTOM, HOOD_MID_1, HOOD_CENTER, HOOD_MID_2, HOOD_TOP};
         currentPosition = 0;
         motorTimer.reset();
@@ -53,13 +56,37 @@ public class HoodTestCommand extends CommandBase {
         if (gamepad.wasJustPressed(GamepadKeys.Button.X)) {
             shooterSubsystem.setShooterMotorPower(FLYWHEEL_MOTOR_POWER);
             intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER);
+            currentShooterState = ShooterTestState.MOTOR_RUN;
             motorTimer.reset();
         }
-//        if (motorTimer.seconds() >= FLYWHEEL_MOTOR_WAITING_TIME) {
-//            shooterSubsystem.setShooterGateServoPosition(GATE_OPEN);
-//
-//        }
-
+        switch (currentShooterState) {
+            case MOTOR_RUN:
+                shooterSubsystem.setShooterMotorPower(FLYWHEEL_MOTOR_POWER);
+                if (motorTimer.seconds() >= FLYWHEEL_MOTOR_WAITING_TIME) {
+                    currentShooterState = ShooterTestState.INTAKE_START;
+                    motorTimer.reset();
+                }
+                break;
+            case INTAKE_START:
+                intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER);
+                motorTimer.reset();
+                currentShooterState = ShooterTestState.GATE_OPEN;
+                break;
+            case GATE_OPEN:
+                shooterSubsystem.setShooterGateServoPosition(GATE_OPEN);
+                if (motorTimer.seconds() >= GATE_OPEN_TIME) {
+                    currentShooterState = ShooterTestState.GATE_CLOSE;
+                    motorTimer.reset();
+                }
+                break;
+            case GATE_CLOSE:
+                shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
+                if (motorTimer.seconds() >= GATE_CLOSED_TIME) {
+                    currentShooterState = ShooterTestState.IDLE;
+                    motorTimer.reset();
+                }
+                break;
+        }
     }
 
 }
