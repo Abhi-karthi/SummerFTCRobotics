@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.commands;
 
 import com.seattlesolvers.solverslib.command.CommandBase;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
-import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 
@@ -22,10 +21,6 @@ public class DriveCommand extends CommandBase{
         double x = gamepad.getLeftX();
         double y = gamepad.getLeftY();
         double rotation = gamepad.getRightX();
-
-        if (gamepad.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
-            drive.resetIMU();
-        }
 
         drive.drive(x, y, rotation);
     }

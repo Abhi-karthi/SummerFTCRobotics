@@ -30,10 +30,12 @@ repositories {
     maven {
         url "https://repo.dairy.foundation/releases"
     }
+    maven { url = "https://mymaven.bylazar.com/releases" }
 }
 
 dependencies {
     implementation project(':FtcRobotController')
     implementation "org.solverslib:core:0.3.4" // core
     implementation "org.solverslib:pedroPathing:0.3.4" // pedroPathing
+    implementation "com.bylazar:docs:1.0.5" // Panels
 }

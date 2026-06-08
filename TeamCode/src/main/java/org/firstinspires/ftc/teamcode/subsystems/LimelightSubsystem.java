@@ -43,6 +43,13 @@ public class LimelightSubsystem extends SubsystemBase {
         return 0;
     }
 
+    // TODO: finish this
+    public double calculateHoodPositionTicks() {
+        // Get horizontal Position
+        // do some math
+        return 69;
+    }
+
     public boolean hasTarget() {
         LLResult result = getLatestResult();
         return result != null && result.isValid();
