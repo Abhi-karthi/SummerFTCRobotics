@@ -9,7 +9,6 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.util.Constants;
-import org.firstinspires.ftc.teamcode.util.Constants.*;
 import org.firstinspires.ftc.teamcode.commands.*;
 import org.firstinspires.ftc.teamcode.subsystems.*;
 

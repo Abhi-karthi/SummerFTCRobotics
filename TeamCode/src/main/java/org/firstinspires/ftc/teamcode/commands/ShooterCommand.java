@@ -37,7 +37,7 @@ public class ShooterCommand extends CommandBase {
         this.intakeSubsystem = intakeSubsystem;
 
         repetitions = 0;
-        addRequirements(shooterSubsystem, intakeSubsystem);
+        addRequirements(shooterSubsystem, intakeSubsystem, limelightSubsystem);
     }
 
     @Override

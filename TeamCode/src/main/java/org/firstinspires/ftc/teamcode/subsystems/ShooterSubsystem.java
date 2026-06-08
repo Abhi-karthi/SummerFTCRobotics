@@ -25,6 +25,8 @@ public class ShooterSubsystem extends SubsystemBase {
         shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooter2.setDirection(DcMotor.Direction.REVERSE);
         shooter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         this.telemetry = telemetry;
 
