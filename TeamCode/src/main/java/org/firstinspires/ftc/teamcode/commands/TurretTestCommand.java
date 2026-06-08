@@ -13,12 +13,16 @@ public class TurretTestCommand extends CommandBase {
     public TurretTestCommand(GamepadEx gamepad, ShooterSubsystem shooterSubsystem) {
         this.gamepad = gamepad;
         this.shooterSubsystem = shooterSubsystem;
+        addRequirements(shooterSubsystem);
     }
 
     @Override
     public void execute() {
         if (gamepad.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
-            shooterSubsystem.setTurretServoPosition(ShooterSubsystem.);
+            shooterSubsystem.setTurretServoPosition(shooterSubsystem.getTurretServoPosition() - 0.01);
+        }
+        if (gamepad.wasJustPressed(GamepadKeys.Button.DPAD_RIGHT)) {
+            shooterSubsystem.setTurretServoPosition(shooterSubsystem.getTurretServoPosition() + 0.01);
         }
     }
 }

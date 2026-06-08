@@ -22,7 +22,8 @@ public class TeleOp extends OpMode {
     private GamepadEx driver;
     private IMU imu;
     private DriveCommand driveCommand;
-    private ShooterCommand shooterCommand;
+    private TurretTestCommand turretTestCommand;
+    private HoodTestCommand hoodTestCommand;
 
     @Override
     public void init() {
@@ -43,7 +44,8 @@ public class TeleOp extends OpMode {
 
         driver = new GamepadEx(gamepad1);
         driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
-        shooterCommand = new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem);
+        turretTestCommand = new TurretTestCommand(driver, shooterSubsystem);
+        hoodTestCommand = new HoodTestCommand(driver, shooterSubsystem, intakeSubsystem, limelightSubsystem);
 
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
@@ -60,8 +62,9 @@ public class TeleOp extends OpMode {
                 intakeSubsystem
         ));
 
-        driver.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(shooterCommand);
+        shooterSubsystem.setDefaultCommand(
+                hoodTestCommand
+        );
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> mecanumDriveSubsystem.resetIMU());

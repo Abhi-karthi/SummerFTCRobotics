@@ -7,7 +7,7 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class LimelightSubsystem extends SubsystemBase {
+public class    LimelightSubsystem extends SubsystemBase {
     private final Limelight3A limelight;
     private final Telemetry telemetry;
 
@@ -15,7 +15,7 @@ public class LimelightSubsystem extends SubsystemBase {
         this.limelight = hardwareMap.get(Limelight3A.class, "limelight");
         this.telemetry = telemetry;
 
-        limelight.pipelineSwitch(0);
+        limelight.pipelineSwitch(3);
         limelight.start();
 
         register();
@@ -35,25 +35,33 @@ public class LimelightSubsystem extends SubsystemBase {
         return limelight.getLatestResult();
     }
 
-    public double getTx() {
+    public double getTy() {
         LLResult result = getLatestResult();
         if (result != null && result.isValid()) {
-            return result.getTx();
+            return result.getTy();
         }
         return 0;
     }
 
     // TODO: finish this
     public double calculateHoodPositionTicks() {
-        // Get horizontal Position
-        // do some math
-        return 69;
+        double h2 = 12.1;
+        double hh2 = 29.5;
+
+        double a2 = getTy();
+
+        double angleRadians = Math.toRadians(a2);
+
+        double distanceInches = (hh2 - h2) / Math.tan(angleRadians);
+
+        return 0.0035434*Math.pow(1.04529, distanceInches) + 0.702259;
     }
 
     public boolean hasTarget() {
         LLResult result = getLatestResult();
         return result != null && result.isValid();
     }
+
 
     public void stop() {
         limelight.stop();

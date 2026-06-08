@@ -17,9 +17,9 @@ public class ShooterSubsystem extends SubsystemBase {
     public ShooterSubsystem(HardwareMap hardwareMap, Telemetry telemetry) {
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
-        shooterGateServo = hardwareMap.get(Servo.class, "shooterGateServo");
-        hoodServo = hardwareMap.get(Servo.class, "hoodServo");
-        turretServo = hardwareMap.get(Servo.class, "turretServo");
+        shooterGateServo = hardwareMap.get(Servo.class, "gate");
+        hoodServo = hardwareMap.get(Servo.class, "hood");
+        turretServo = hardwareMap.get(Servo.class, "turret");
 
         shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
