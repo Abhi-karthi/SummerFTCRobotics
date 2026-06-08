@@ -45,7 +45,7 @@ public class    LimelightSubsystem extends SubsystemBase {
 
     // TODO: finish this
     public double calculateHoodPositionTicks() {
-        double h2 = 12.1;
+        double h2 = 11.5;
         double hh2 = 29.5;
 
         double a2 = getTy();
