@@ -8,7 +8,8 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 public class DriveCommand extends CommandBase {
     private final MecanumDriveSubsystem drive;
     private final GamepadEx gamepad;
-    public DriveCommand(GamepadEx gamepad, MecanumDriveSubsystem drive) {
+
+    public DriveCommand(GamepadEx gamepad, MecanumDriveSubsystem drive, String team) {
         this.drive = drive;
         this.gamepad = gamepad;
         addRequirements(drive);
