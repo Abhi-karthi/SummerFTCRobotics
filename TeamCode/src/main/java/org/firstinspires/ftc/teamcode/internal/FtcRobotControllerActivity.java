@@ -622,22 +622,20 @@ public class FtcRobotControllerActivity extends Activity
     monitorContainer.setOrientation(isLandscape ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
 
     int count = monitorContainer.getChildCount();
-    int i = 0;
-    while (i < count) {
+    for (int i = 0; i < count; i++) {
       View view = monitorContainer.getChildAt(i);
       LayoutParams layoutParams = isLandscape
           ? new LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
           : new LayoutParams(LayoutParams.MATCH_PARENT, 0, 1f);
       view.setLayoutParams(layoutParams);
-      i++;
     }
     monitorContainer.requestLayout();
   }
 
   @Override
   protected void onActivityResult(int request, int result, Intent intent) {
-    if (request == REQUEST_CONFIG_WIFI_CHANNEL) {
-      if (result == RESULT_OK) {
+    if (REQUEST_CONFIG_WIFI_CHANNEL == request) {
+      if (RESULT_OK == result) {
         AppUtil.getInstance().showToast(UILocation.BOTH, context.getString(R.string.toastWifiConfigurationComplete));
       }
     }
