@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.game;
 
+import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED;
+import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_BOTTOM;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -9,18 +12,24 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.util.Constants;
+import org.firstinspires.ftc.teamcode.util.Constants.*;
 import org.firstinspires.ftc.teamcode.commands.*;
 import org.firstinspires.ftc.teamcode.subsystems.*;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends OpMode {
+    private MecanumDriveSubsystem mecanumDriveSubsystem;
     private IntakeSubsystem intakeSubsystem;
     private LimelightSubsystem limelightSubsystem;
+    private ShooterSubsystem shooterSubsystem;
     private GamepadEx driver;
+    private IMU imu;
+    private DriveCommand driveCommand;
+    private ShooterCommand shooterCommand;
 
     @Override
     public void init() {
-        IMU imu = hardwareMap.get(IMU.class, "imu");
+        imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters imuParams = new IMU.Parameters(
                 new RevHubOrientationOnRobot (
                         Constants.controlHubLogoFacingDirection,
@@ -30,14 +39,14 @@ public class TeleOp extends OpMode {
 
         imu.initialize(imuParams);
 
-        MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
+        mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
         intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
-        ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
+        shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
         limelightSubsystem = new LimelightSubsystem(hardwareMap, telemetry);
 
         driver = new GamepadEx(gamepad1);
-        DriveCommand driveCommand = new DriveCommand(driver, mecanumDriveSubsystem);
-        ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem);
+        driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
+        shooterCommand = new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem);
 
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
@@ -54,16 +63,29 @@ public class TeleOp extends OpMode {
                 intakeSubsystem
         ));
 
-        driver.getGamepadButton(GamepadKeys.Button.A)
+        driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(shooterCommand);
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(mecanumDriveSubsystem::resetIMU);
+                .whenPressed(() -> mecanumDriveSubsystem.resetIMU());
+
+        shooterSubsystem.setDefaultCommand( new RunCommand(
+                () -> {
+                    shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
+                    shooterSubsystem.setHoodServoPosition(HOOD_BOTTOM);
+                },
+                shooterSubsystem
+        ));
     }
 
     @Override
     public void init_loop() {
         driver.readButtons();
+        if (driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
+            driveCommand.changeTeam("red");
+        } else if (driver.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
+            driveCommand.changeTeam("blue");
+        }
     }
 
     @Override

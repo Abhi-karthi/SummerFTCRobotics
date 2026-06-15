@@ -21,18 +21,18 @@ public class Constants {
 
     public static double GATE_OPEN = 0.5;
     public static double GATE_CLOSED = 0.25;
-    public static double GATE_OPEN_TIME = 0.5;
-    public static double GATE_CLOSED_TIME = 0.25;
+    public static double GATE_OPEN_TIME = 0.1;
+    public static double GATE_CLOSED_TIME = 0.1;
 
-    public static double INTAKE_RUNTIME = 2;
-
+    public static double INTAKE_RUNTIME = 1.4;
+    public static double INTAKE_RUNTIME_2 = 0.2;
     public static RevHubOrientationOnRobot.UsbFacingDirection controlHubUSBFacingDirection = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;
     public static RevHubOrientationOnRobot.LogoFacingDirection controlHubLogoFacingDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
 
     // TODO: Correct motor power
-    public static double FLYWHEEL_MOTOR_POWER = 0.85;
-    public static double FLYWHEEL_MOTOR_WAITING_TIME = 4;  // seconds
-    public static double FLYWHEEL_MOTOR_WAITING_TIME_2 = 4;
+    public static double FLYWHEEL_MOTOR_POWER = 0.75;
+    public static double FLYWHEEL_MOTOR_WAITING_TIME = 1.5;  // seconds
+    public static double FLYWHEEL_MOTOR_WAITING_TIME_2 = 0.5;
 
     // TODO: TUNE LIMELIGHT SOMEHOW
 
