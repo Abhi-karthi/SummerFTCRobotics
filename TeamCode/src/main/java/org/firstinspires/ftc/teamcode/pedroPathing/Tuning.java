@@ -384,8 +384,10 @@ class ForwardVelocityTuner extends OpMode {
     /** This starts the OpMode by setting the drive motors to run forward at full power. */
     @Override
     public void start() {
-        for (int i = 0; i < RECORD_NUMBER; i++) {
+        int index = 0;
+        while (index < RECORD_NUMBER) {
             velocities.add(0.0);
+            index++;
         }
         follower.startTeleopDrive(true);
         follower.update();
@@ -494,8 +496,10 @@ class LateralVelocityTuner extends OpMode {
     /** This starts the OpMode by setting the drive motors to run right at full power. */
     @Override
     public void start() {
-        for (int i = 0; i < RECORD_NUMBER; i++) {
+        int index = 0;
+        while (index < RECORD_NUMBER) {
             velocities.add(0.0);
+            index++;
         }
         follower.startTeleopDrive(true);
         follower.update();
@@ -1676,6 +1680,7 @@ class Drawing {
      *
      * @param follower Pedro Follower instance.
      */
+    @SuppressWarnings("unused")
     public static void drawDebug(Follower follower) {
         if (follower.getCurrentPath() != null) {
             drawPath(follower.getCurrentPath(), robotLook);
@@ -1752,6 +1757,7 @@ class Drawing {
      * @param pathChain the PathChain to draw
      * @param style     the parameters used to draw the PathChain with
      */
+    @SuppressWarnings("unused")
     public static void drawPath(PathChain pathChain, Style style) {
         for (int i = 0; i < pathChain.size(); i++) {
             drawPath(pathChain.getPath(i), style);
