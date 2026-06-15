@@ -56,14 +56,14 @@ import com.qualcomm.robotcore.util.Range;
 public class RobotHardware {
 
     /* Declare OpMode members. */
-    private LinearOpMode myOpMode = null;   // gain access to methods in the calling OpMode.
+    private final LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
 
     // Define Motor and Servo objects  (Make them private so they can't be accessed externally)
-    private DcMotor leftDrive   = null;
-    private DcMotor rightDrive  = null;
-    private DcMotor armMotor = null;
-    private Servo   leftHand = null;
-    private Servo   rightHand = null;
+    private DcMotor leftDrive;
+    private DcMotor rightDrive;
+    private DcMotor armMotor;
+    private Servo   leftHand;
+    private Servo   rightHand;
 
     // Define Drive constants.  Make them public so they CAN be used by the calling OpMode
     public static final double MID_SERVO       =  0.5 ;
@@ -118,19 +118,14 @@ public class RobotHardware {
      */
     public void driveRobot(double Drive, double Turn) {
         // Combine drive and turn for blended motion.
-        double left  = Drive + Turn;
-        double right = Drive - Turn;
+        double rawL = Drive + Turn;
+        double rawR = Drive - Turn;
 
         // Scale the values so neither exceed +/- 1.0
-        double max = Math.max(Math.abs(left), Math.abs(right));
-        if (max > 1.0)
-        {
-            left /= max;
-            right /= max;
-        }
+        double max = Math.max(1.0, Math.max(Math.abs(rawL), Math.abs(rawR)));
 
         // Use existing function to drive both wheels.
-        setDrivePower(left, right);
+        setDrivePower(rawL / max, rawR / max);
     }
 
     /**
@@ -157,11 +152,11 @@ public class RobotHardware {
     /**
      * Send the two hand-servos to opposing (mirrored) positions, based on the passed offset.
      *
-     * @param offset
+     * @param offset the amount to offset from the center position
      */
     public void setHandPositions(double offset) {
-        offset = Range.clip(offset, -0.5, 0.5);
-        leftHand.setPosition(MID_SERVO + offset);
-        rightHand.setPosition(MID_SERVO - offset);
+        double clippedOffset = Range.clip(offset, -0.5, 0.5);
+        leftHand.setPosition(MID_SERVO + clippedOffset);
+        rightHand.setPosition(MID_SERVO - clippedOffset);
     }
 }

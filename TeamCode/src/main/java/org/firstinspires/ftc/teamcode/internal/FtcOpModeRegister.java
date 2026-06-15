@@ -43,15 +43,12 @@ import org.firstinspires.ftc.teamcode.samples.ConceptNullOp;
 public class FtcOpModeRegister implements OpModeRegister {
 
     /**
-     * {@link #register(OpModeManager)} is called by the SDK game in order to register
+     * register(OpModeManager) is called by the SDK game in order to register
      * OpMode classes or instances that will participate in an FTC game.
-     *
      * There are two mechanisms by which an OpMode may be registered.
-     *
      *  1) The preferred method is by means of class annotations in the OpMode itself.
      *  See, for example the class annotations in {@link ConceptNullOp}.
-     *
-     *  2) The other, retired,  method is to modify this {@link #register(OpModeManager)}
+     *  2) The other, retired,  method is to modify this register(OpModeManager)
      *  method to include explicit calls to OpModeManager.register().
      *  This method of modifying this file directly is discouraged, as it
      *  makes updates to the SDK harder to integrate into your code.
@@ -63,7 +60,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
     public void register(OpModeManager manager) {
 
-        /**
+        /*
          * Any manual OpMode class registrations should go here.
          */
     }

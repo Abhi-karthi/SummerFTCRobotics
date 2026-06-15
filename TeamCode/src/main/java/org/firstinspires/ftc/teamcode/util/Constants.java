@@ -5,6 +5,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 @Configurable
+@SuppressWarnings("unused")
 public class Constants {
     //Servo Positions
     //TODO: Test for servo positions

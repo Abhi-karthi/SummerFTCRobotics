@@ -14,18 +14,13 @@ import org.firstinspires.ftc.teamcode.subsystems.*;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 public class TeleOp extends OpMode {
-    private MecanumDriveSubsystem mecanumDriveSubsystem;
     private IntakeSubsystem intakeSubsystem;
     private LimelightSubsystem limelightSubsystem;
-    private ShooterSubsystem shooterSubsystem;
     private GamepadEx driver;
-    private IMU imu;
-    private DriveCommand driveCommand;
-    private ShooterCommand shooterCommand;
 
     @Override
     public void init() {
-        imu = hardwareMap.get(IMU.class, "imu");
+        IMU imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters imuParams = new IMU.Parameters(
                 new RevHubOrientationOnRobot (
                         Constants.controlHubLogoFacingDirection,
@@ -35,14 +30,14 @@ public class TeleOp extends OpMode {
 
         imu.initialize(imuParams);
 
-        mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
+        MecanumDriveSubsystem mecanumDriveSubsystem = new MecanumDriveSubsystem(hardwareMap, imu, telemetry);
         intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
-        shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
+        ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
         limelightSubsystem = new LimelightSubsystem(hardwareMap, telemetry);
 
         driver = new GamepadEx(gamepad1);
-        driveCommand = new DriveCommand(driver, mecanumDriveSubsystem, "red");
-        shooterCommand = new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem);
+        DriveCommand driveCommand = new DriveCommand(driver, mecanumDriveSubsystem);
+        ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem);
 
         mecanumDriveSubsystem.setDefaultCommand(
                 driveCommand
@@ -63,17 +58,12 @@ public class TeleOp extends OpMode {
                 .whenPressed(shooterCommand);
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> mecanumDriveSubsystem.resetIMU());
+                .whenPressed(mecanumDriveSubsystem::resetIMU);
     }
 
     @Override
     public void init_loop() {
         driver.readButtons();
-        if (driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
-            driveCommand.changeTeam("red");
-        } else if (driver.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
-            driveCommand.changeTeam("blue");
-        }
     }
 
     @Override

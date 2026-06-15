@@ -662,7 +662,7 @@ This is a bug fix only release to address the following four issues.
     * Fixes issue where the ping time showed as being higher than reality when initially connecting to or restarting the robot.
     * To see the full improvement, you must update both the Robot Controller and Driver Station apps.
 * Updates samples located at [/FtcRobotController/src/main/java/org/firstinspires/ftc/robotcontroller/external/samples](FtcRobotController/src/main/java/org/firstinspires/ftc/robotcontroller/external/samples).
-    * Added ConceptGamepadRumble and ConceptGamepadTouchpad samples to illustrate the use of these new gampad capabilities.
+    * Added ConceptGamepadRumble and ConceptGamepadTouchpad samples to illustrate the use of these new gamepad capabilities.
     * Condensed existing Vuforia samples into just 2 samples (ConceptVuforiaFieldNavigation & ConceptVuforiaFieldNavigationWebcam) showing how to determine the robot's location on the field using Vuforia. These both use the current season's Target images.
     * Added ConceptVuforiaDriveToTargetWebcam to illustrate an easy way to drive directly to any visible Vuforia target.
 * Makes many improvements to the warning system and individual warnings.
@@ -683,7 +683,7 @@ This is a bug fix only release to address the following four issues.
  * Fixes Robot Controller app crash on Android 9+ when a Driver Station connects.
  * Fixes issue where an OpMode was responsible for calling shutdown on the
    TensorFlow TFObjectDetector. Now this is done automatically.
- * Fixes Vuforia initialization blocks to allow user to chose AxesOrder. Updated
+ * Fixes Vuforia initialization blocks to allow user to choose AxesOrder. Updated
    relevant blocks sample opmodes.
  * Fixes [FtcRobotController issue #114](https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/114)
    LED blocks and Java class do not work.
@@ -988,7 +988,7 @@ Version 5.5 requires Android Studio 4.0 or later.
     Feedforward is useful when controlling a motor's speed because it "anticipates" how much the control voltage
     must change to achieve a new speed set-point, rather than requiring the integrated error to change sufficiently.
     The PIDF values were chosen to provide responsive, yet stable, speed control on a lightly loaded motor.
-    The more heavily a motor is loaded (drag or friction), the more noticable the PIDF improvement will be.
+    The more heavily a motor is loaded (drag or friction), the more noticeable the PIDF improvement will be.
 * Fixes startup crash on Android 10
 * Fixes [ftc_app issue #712](https://github.com/ftctechnh/ftc_app/issues/712) (thanks to FROGbots-4634)
 * Fixes [ftc_app issue #542](https://github.com/ftctechnh/ftc_app/issues/542)
@@ -1069,14 +1069,14 @@ Known issues:
      - Important Note: Android Studio users will need to be connected to the Internet the first time build the ftc_app project.
      - Internet connectivity is required for the first build so the appropriate files can be downloaded from the Google repository.
      - Users should not need to be connected to the Internet for subsequent builds.
-     - This should also fix buid issue where Android Studio would complain that it "Could not find com.android.tools.lint:lint-gradle:26.1.4" (or similar).
+     - This should also fix build issue where Android Studio would complain that it "Could not find com.android.tools.lint:lint-gradle:26.1.4" (or similar).
  * Added support for REV Spark Mini motor controller as part of the configuration menu for a servo/PWM port on the REV Expansion Hub.
  * Provide examples for playing audio files in an OpMode.
  * Block Development Tool Changes
      - Includes a fix for a problem with the Velocity blocks that were reported in the FTC Technology forum (Blocks Programming subforum).
      - Change the "Save completed successfully." message to a white color so it will contrast with a green background.
      - Fixed the "Download image" feature so it will work if there are text blocks in the OpMode.
- * Introduce support for Google's TensorFlow Lite technology for object detetion for 2018-2019 game.
+ * Introduce support for Google's TensorFlow Lite technology for object detection for 2018-2019 game.
      - TensorFlow lite can recognize Gold Mineral and Silver Mineral from 2018-2019 game.
      - Example Java and Block OpModes are included to show how to determine the relative position of the gold block (left, center, right).
 
@@ -1232,7 +1232,7 @@ Changes with version 3.4 include:
 
 This version of the software includes improves for the FTC Blocks Programming Tool and the OnBot Java Programming Tool.
 
-Changes with verion 3.3 include:
+Changes with version 3.3 include:
  * Android Studio ftc_app project has been updated to use Gradle Plugin 2.3.3.
  * Android Studio ftc_app project is already using gradle 3.5 distribution.
  * Robot Controller log has been renamed to /sdcard/RobotControllerLog.txt (note that this change was actually introduced w/ v3.2).
@@ -1258,13 +1258,13 @@ Known issues:
  * Android Studio
     - After updating to the new v3.3 Android Studio project folder, if you get error messages indicating "InvalidVirtualFileAccessException" then you might need to do a File->Invalidate Caches / Restart to clear the error.
  * OnBot Java
-    - Sometimes when you push the build button to build all OpModes, the RC returns an error message that the build failed.  If you press the build button a second time, the build typically suceeds.
+    - Sometimes when you push the build button to build all OpModes, the RC returns an error message that the build failed.  If you press the build button a second time, the build typically succeeds.
 
 ## Version 3.2 (built on 17.08.02)
 
 This version of the software introduces the "OnBot Java" Development Tool.  Similar to the FTC Blocks Development Tool, the FTC OnBot Java Development Tool allows a user to create, edit and build OpModes dynamically using only a Javascript-enabled web browser.
 
-The OnBot Java Development Tool is an integrated development environment (IDE) that is served up by the Robot Controller.  OpModes are created and edited using a Javascript-enabled browser (Google Chromse is recommended).  OpModes are saved on the Robot Controller Android device directly.
+The OnBot Java Development Tool is an integrated development environment (IDE) that is served up by the Robot Controller.  OpModes are created and edited using a Javascript-enabled browser (Google Chrome is recommended).  OpModes are saved on the Robot Controller Android device directly.
 
 The OnBot Java Development Tool provides a Java programming environment that does NOT need Android Studio.
 
@@ -1290,7 +1290,7 @@ Known issues:
 * Auto complete function is incomplete and does not support the following (for now):
      - Access via *this* keyword
      - Access via *super* keyword
-     - Members of the super cloass, not overridden by the class
+     - Members of the super class, not overridden by the class
      - Any methods provided in the current class
      - Inner classes
      - Can't handle casted objects
@@ -1630,7 +1630,7 @@ Changes include:
  * made ReadWriteRunnableStanard interface public.
  * fixed off-by-one errors in Command constructor
  * moved specific hardware implmentations into their own package.
- * moved specific gamepad implemnatations to the hardware library.
+ * moved specific gamepad implementations to the hardware library.
  * changed LICENSE file to new BSD version.
  * fixed race condition when shutting down Modern Robotics USB devices.
  * methods in the ColorSensor classes have been synchronized.

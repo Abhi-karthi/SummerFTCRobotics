@@ -92,11 +92,9 @@ public class Tuning extends SelectableOpMode {
     @Override
     public void onSelect() {
         if (follower == null) {
-            follower = Constants.createFollower(hardwareMap);
             PanelsConfigurables.INSTANCE.refreshClass(this);
-        } else {
-            follower = Constants.createFollower(hardwareMap);
         }
+        follower = Constants.createFollower(hardwareMap);
 
         follower.setStartingPose(new Pose());
 
@@ -434,7 +432,7 @@ class ForwardVelocityTuner extends OpMode {
             telemetryM.debug("Press A to set the Forward Velocity temporarily (while robot remains on).");
 
             for (int i = 0; i < velocities.size(); i++) {
-                telemetry.addData(String.valueOf(i), velocities.get(i));
+                telemetry.addData(i + "", velocities.get(i));
             }
 
             telemetryM.update(telemetry);
@@ -1435,7 +1433,9 @@ class AnalogMinMaxTuner extends OpMode {
 
     public List<LynxModule> lynxModules; //js to improve loop times a bit yk
 
+    @Override
     public void start() {
+        super.start();
     }
 
     @Override

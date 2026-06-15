@@ -23,39 +23,37 @@ import org.firstinspires.ftc.teamcode.util.RedPaths;
 import org.firstinspires.ftc.teamcode.util.PoseStorage;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Red Auto")
+@SuppressWarnings("unused")
 public class RedAutonomous extends OpMode {
-    private LimelightSubsystem limelightSubsystem;
-    private ShooterSubsystem shooterSubsystem;
     private IntakeSubsystem intakeSubsystem;
     private Follower follower;
-    private RedPaths paths;
 
     private SequentialCommandGroup autonomousRoutine;
 
     @Override
     public void init() {
-        limelightSubsystem = new LimelightSubsystem(hardwareMap, telemetry);
-        shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
+        LimelightSubsystem limelightSubsystem = new LimelightSubsystem(hardwareMap, telemetry);
+        ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMap, telemetry);
         intakeSubsystem = new IntakeSubsystem(hardwareMap, telemetry);
 
 
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(RED_AUTONOMOUS_INITIAL_POS);
 
-        paths = new RedPaths(follower);
+        RedPaths paths = new RedPaths(follower);
         autonomousRoutine = new SequentialCommandGroup(
                 new FollowPathCommand(follower, paths.INITIAL_TO_SCORE_1),
                 new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem),
                 new FollowPathCommand(follower, paths.SCORE_1_TO_INTAKE_START_1),
-                IntakeWithFollowerHelper(paths.INTAKE_START_1_TO_INTAKE_END_1),
+                intakeWithFollowerHelper(paths.INTAKE_START_1_TO_INTAKE_END_1),
                 new FollowPathCommand(follower, paths.INTAKE_END_1_TO_SCORE_2),
                 new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem),
                 new FollowPathCommand(follower, paths.SCORE_2_INTAKE_START_2),
-                IntakeWithFollowerHelper(paths.INTAKE_START_2_TO_INTAKE_END_2),
+                intakeWithFollowerHelper(paths.INTAKE_START_2_TO_INTAKE_END_2),
                 new FollowPathCommand(follower, paths.INTAKE_END_2_TO_SCORE_3),
                 new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem),
                 new FollowPathCommand(follower, paths.SCORE_3_TO_INTAKE_START_3),
-                IntakeWithFollowerHelper(paths.INTAKE_START_3_TO_INTAKE_END_3),
+                intakeWithFollowerHelper(paths.INTAKE_START_3_TO_INTAKE_END_3),
                 new FollowPathCommand(follower, paths.INTAKE_END_3_TO_SCORE_4),
                 new ShooterCommand(shooterSubsystem, limelightSubsystem, intakeSubsystem)
         );
@@ -83,10 +81,10 @@ public class RedAutonomous extends OpMode {
         CommandScheduler.getInstance().reset();
     }
 
-    private Command IntakeWithFollowerHelper(PathChain path) {
-        return new ParallelDeadlineGroup(  // deadline means when path command finishes, intake command ends. when intake command ends, it is turned off.
+    private Command intakeWithFollowerHelper(PathChain path) {
+        return new ParallelDeadlineGroup(  // ParallelDeadlineGroup means when the path command finishes, the intake command ends. When the intake command ends, it is turned off.
                 new FollowPathCommand(follower, path),
-                new StartEndCommand( // when command starts, intake starts, when it ends intake stops 
+                new StartEndCommand( // When the command starts, the intake starts; when it ends, the intake stops.
                         () -> intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER),
                         () -> intakeSubsystem.intake(0, 0),
                         intakeSubsystem
