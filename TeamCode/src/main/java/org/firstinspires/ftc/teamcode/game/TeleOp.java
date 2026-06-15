@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.game;
 
+import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED;
+import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_BOTTOM;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -60,11 +63,19 @@ public class TeleOp extends OpMode {
                 intakeSubsystem
         ));
 
-        driver.getGamepadButton(GamepadKeys.Button.A)
+        driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(shooterCommand);
 
         driver.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> mecanumDriveSubsystem.resetIMU());
+
+        shooterSubsystem.setDefaultCommand( new RunCommand(
+                () -> {
+                    shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
+                    shooterSubsystem.setHoodServoPosition(HOOD_BOTTOM);
+                },
+                shooterSubsystem
+        ));
     }
 
     @Override

@@ -9,7 +9,10 @@ import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED_TIME;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_OPEN;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_OPEN_TIME;
+import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_BOTTOM;
+import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER;
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_RUNTIME;
+import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_RUNTIME_2;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.CommandBase;
@@ -24,7 +27,7 @@ public class ShooterCommand extends CommandBase {
     private final IntakeSubsystem intakeSubsystem;
 
     private final ElapsedTime shooterElapsedTime;
-    private enum ShooterState { RUN_MOTOR, RUN_INTAKE, OPEN_GATE, CLOSE_GATE, STOP_INTAKE, RUN_MOTOR_2, STOP}
+    private enum ShooterState { RUN_MOTOR, RUN_INTAKE, OPEN_GATE, RUN_INTAKE_2, CLOSE_GATE, STOP_INTAKE, RUN_MOTOR_2, STOP}
     private ShooterState currentShooterState;
     private int repetitions;
 
@@ -45,6 +48,9 @@ public class ShooterCommand extends CommandBase {
         shooterElapsedTime.reset();
         currentShooterState = ShooterState.RUN_MOTOR;
         repetitions = 0;
+
+        shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
+        shooterSubsystem.setHoodServoPosition(HOOD_BOTTOM);
     }
 
     @Override
@@ -60,10 +66,11 @@ public class ShooterCommand extends CommandBase {
                 }
                 break;
             case RUN_INTAKE:
-                intakeSubsystem.intake(1, 1);
+                intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER);
                 if (shooterElapsedTime.seconds() >= INTAKE_RUNTIME) {
                     shooterElapsedTime.reset();
                     repetitions++;
+                    intakeSubsystem.intake(0, 0);
                     currentShooterState = ShooterState.OPEN_GATE;
                 }
                 break;
@@ -71,6 +78,14 @@ public class ShooterCommand extends CommandBase {
                 shooterSubsystem.setShooterGateServoPosition(GATE_OPEN);
                 if (shooterElapsedTime.seconds() >= GATE_OPEN_TIME) {
                     shooterElapsedTime.reset();
+                    currentShooterState = ShooterState.RUN_INTAKE_2;
+                }
+                break;
+            case RUN_INTAKE_2:
+                intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER);
+                if (shooterElapsedTime.seconds() >= INTAKE_RUNTIME_2) {
+                    shooterElapsedTime.reset();
+                    intakeSubsystem.intake(0, 0);
                     currentShooterState = ShooterState.CLOSE_GATE;
                 }
                 break;
