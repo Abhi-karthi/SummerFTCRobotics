@@ -5,7 +5,7 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 
-public class DriveCommand extends CommandBase{
+public class DriveCommand extends CommandBase {
     private final MecanumDriveSubsystem drive;
     private final GamepadEx gamepad;
     private String team;
