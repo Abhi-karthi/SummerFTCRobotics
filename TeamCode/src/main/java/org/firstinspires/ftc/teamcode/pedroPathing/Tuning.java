@@ -92,11 +92,9 @@ public class Tuning extends SelectableOpMode {
     @Override
     public void onSelect() {
         if (follower == null) {
-            follower = Constants.createFollower(hardwareMap);
             PanelsConfigurables.INSTANCE.refreshClass(this);
-        } else {
-            follower = Constants.createFollower(hardwareMap);
         }
+        follower = Constants.createFollower(hardwareMap);
 
         follower.setStartingPose(new Pose());
 
@@ -386,8 +384,10 @@ class ForwardVelocityTuner extends OpMode {
     /** This starts the OpMode by setting the drive motors to run forward at full power. */
     @Override
     public void start() {
-        for (int i = 0; i < RECORD_NUMBER; i++) {
+        int index = 0;
+        while (index < RECORD_NUMBER) {
             velocities.add(0.0);
+            index++;
         }
         follower.startTeleopDrive(true);
         follower.update();
@@ -434,7 +434,7 @@ class ForwardVelocityTuner extends OpMode {
             telemetryM.debug("Press A to set the Forward Velocity temporarily (while robot remains on).");
 
             for (int i = 0; i < velocities.size(); i++) {
-                telemetry.addData(String.valueOf(i), velocities.get(i));
+                telemetry.addData(i + "", velocities.get(i));
             }
 
             telemetryM.update(telemetry);
@@ -496,8 +496,10 @@ class LateralVelocityTuner extends OpMode {
     /** This starts the OpMode by setting the drive motors to run right at full power. */
     @Override
     public void start() {
-        for (int i = 0; i < RECORD_NUMBER; i++) {
+        int index = 0;
+        while (index < RECORD_NUMBER) {
             velocities.add(0.0);
+            index++;
         }
         follower.startTeleopDrive(true);
         follower.update();
@@ -1435,7 +1437,9 @@ class AnalogMinMaxTuner extends OpMode {
 
     public List<LynxModule> lynxModules; //js to improve loop times a bit yk
 
+    @Override
     public void start() {
+        super.start();
     }
 
     @Override
@@ -1676,6 +1680,7 @@ class Drawing {
      *
      * @param follower Pedro Follower instance.
      */
+    @SuppressWarnings("unused")
     public static void drawDebug(Follower follower) {
         if (follower.getCurrentPath() != null) {
             drawPath(follower.getCurrentPath(), robotLook);
@@ -1752,6 +1757,7 @@ class Drawing {
      * @param pathChain the PathChain to draw
      * @param style     the parameters used to draw the PathChain with
      */
+    @SuppressWarnings("unused")
     public static void drawPath(PathChain pathChain, Style style) {
         for (int i = 0; i < pathChain.size(); i++) {
             drawPath(pathChain.getPath(i), style);

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.commands;
 
-import static org.firstinspires.ftc.teamcode.util.Constants.CENTER_TURRET;
 import static org.firstinspires.ftc.teamcode.util.Constants.DEGREE_OFFSET_TO_SERVO_TICKS;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_POWER;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_WAITING_TIME;
@@ -40,7 +39,7 @@ public class ShooterCommand extends CommandBase {
         this.intakeSubsystem = intakeSubsystem;
 
         repetitions = 0;
-        addRequirements(shooterSubsystem, intakeSubsystem);
+        addRequirements(shooterSubsystem, intakeSubsystem, limelightSubsystem);
     }
 
     @Override

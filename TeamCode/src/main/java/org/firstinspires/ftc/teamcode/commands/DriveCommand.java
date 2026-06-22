@@ -5,10 +5,10 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 
-public class DriveCommand extends CommandBase{
+public class DriveCommand extends CommandBase {
     private final MecanumDriveSubsystem drive;
     private final GamepadEx gamepad;
-    private String team;
+    String team;
     public DriveCommand(GamepadEx gamepad, MecanumDriveSubsystem drive, String team) {
         this.drive = drive;
         this.gamepad = gamepad;
@@ -25,10 +25,8 @@ public class DriveCommand extends CommandBase{
         drive.drive(x, y, rotation);
     }
 
+    public void changeTeam(String team) {this.team = team;}
+
     @Override
     public void end(boolean interrupted) { drive.drive(0, 0, 0); }
-
-    public void changeTeam(String team) {
-        this.team = team;
-    }
 }

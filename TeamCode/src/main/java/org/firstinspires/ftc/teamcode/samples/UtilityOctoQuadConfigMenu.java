@@ -30,6 +30,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Stack;
 
 /*
@@ -130,7 +131,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         for(int i = 0; i < OctoQuad.NUM_ENCODERS; i++)
         {
             optionsEncoderDirections[i] = new TelemetryMenu.BooleanOption(
-                    String.format("Encoder %d direction", i),
+                    String.format(Locale.US, "Encoder %d direction", i),
                     octoquad.getSingleEncoderDirection(i) == OctoQuad.EncoderDirection.REVERSE,
                     "-",
                     "+");
@@ -743,7 +744,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
                 }
                 else
                 {
-                    valStr = val ? "true" : "false";
+                    valStr = Boolean.toString(val);
                 }
 
                 return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", name, valStr);

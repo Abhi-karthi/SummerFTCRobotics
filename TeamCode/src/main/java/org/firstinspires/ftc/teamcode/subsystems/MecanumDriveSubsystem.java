@@ -53,21 +53,17 @@ public class MecanumDriveSubsystem extends SubsystemBase{
         double rotatedX = x * Math.cos(headingRadians) - y * Math.sin(headingRadians);
         double rotatedY = x * Math.sin(headingRadians) + y * Math.cos(headingRadians);
 
-        double frontLeftPower = rotatedY + rotatedX + rotation;
-        double frontRightPower = rotatedY - rotatedX - rotation;
-        double backLeftPower = rotatedY - rotatedX + rotation;
-        double backRightPower = rotatedY + rotatedX - rotation;
+        double fl = rotatedY + rotatedX + rotation;
+        double fr = rotatedY - rotatedX - rotation;
+        double bl = rotatedY - rotatedX + rotation;
+        double br = rotatedY + rotatedX - rotation;
 
-        double max = Math.max(1.0, Math.max(Math.abs(frontLeftPower), Math.max(Math.abs(frontRightPower), Math.max(Math.abs(backLeftPower), Math.abs(backRightPower)))));
-        frontLeftPower /= max;
-        frontRightPower /= max;
-        backLeftPower /= max;
-        backRightPower /= max;
+        double max = Math.max(1.0, Math.max(Math.abs(fl), Math.max(Math.abs(fr), Math.max(Math.abs(bl), Math.abs(br)))));
 
-        frontLeft.setPower(frontLeftPower);
-        frontRight.setPower(frontRightPower);
-        backLeft.setPower(backLeftPower);
-        backRight.setPower(backRightPower);
+        frontLeft.setPower(fl / max);
+        frontRight.setPower(fr / max);
+        backLeft.setPower(bl / max);
+        backRight.setPower(br / max);
     }
 
     public void resetIMU() {

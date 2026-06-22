@@ -25,6 +25,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+
         telemetry.addData("intake1MotorPower", getIntake1MotorPower());
         telemetry.addData("intake2MotorPower", getIntake2MotorPower());
     }
@@ -34,7 +35,13 @@ public class IntakeSubsystem extends SubsystemBase {
         intake2.setPower(intake2Power);
     }
 
-    public double getIntake1MotorPower() { return intake1.getPower(); }
-    public double getIntake2MotorPower() { return intake2.getPower(); }
+    public double getIntake1MotorPower() {
+        if (intake1 == null) return -1;
+        return intake1.getPower();
+    }
+    public double getIntake2MotorPower() {
+        if (intake2 == null) return -1;
+        return intake2.getPower();
+    }
 
 }

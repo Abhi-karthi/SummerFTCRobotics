@@ -44,6 +44,7 @@ public class LimelightSubsystem extends SubsystemBase {
     }
 
     public double calculateHoodPositionTicks() {
+        if (!hasTarget()) return 0; // lowest position
         double h2 = 11.5;
         double hh2 = 29.5;
 
