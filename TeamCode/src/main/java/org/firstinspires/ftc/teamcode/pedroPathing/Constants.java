@@ -16,7 +16,7 @@ public class Constants {
             .rightFrontMotorName("frontRight")
             .leftRearMotorName("backLeft")
             .rightRearMotorName("backRight")
-            .leftFrontMotorName("frontLeft")
+            .leftFrontMotorName("frontLeft") // IMU bus 0 control hub "imu"
             .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
