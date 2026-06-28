@@ -10,6 +10,7 @@ import static org.firstinspires.ftc.teamcode.util.Constants.GATE_OPEN;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_OPEN_TIME;
 import static org.firstinspires.ftc.teamcode.util.Constants.HOOD_BOTTOM;
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER;
+import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_MOTOR_POWER_2;
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_RUNTIME;
 import static org.firstinspires.ftc.teamcode.util.Constants.INTAKE_RUNTIME_2;
 
@@ -29,7 +30,7 @@ public class ShooterCommand extends CommandBase {
     private enum ShooterState { RUN_MOTOR, RUN_INTAKE, OPEN_GATE, RUN_INTAKE_2, CLOSE_GATE, STOP_INTAKE, RUN_MOTOR_2, STOP}
     private ShooterState currentShooterState;
     private int repetitions;
-
+    private double hoodPosition;
     public ShooterCommand(ShooterSubsystem shooterSubsystem, LimelightSubsystem limelightSubsystem, IntakeSubsystem intakeSubsystem) {
         currentShooterState = ShooterState.RUN_MOTOR;
         shooterElapsedTime = new ElapsedTime();
@@ -50,6 +51,7 @@ public class ShooterCommand extends CommandBase {
 
         shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
         shooterSubsystem.setHoodServoPosition(HOOD_BOTTOM);
+        hoodPosition = limelightSubsystem.calculateHoodPositionTicks();
     }
 
     @Override
@@ -58,7 +60,7 @@ public class ShooterCommand extends CommandBase {
             case RUN_MOTOR: // aiming turret and running shooter motors at the same time and hood
                 shooterSubsystem.setShooterMotorPower(FLYWHEEL_MOTOR_POWER);
                 shooterSubsystem.setTurretServoPosition(DEGREE_OFFSET_TO_SERVO_TICKS(limelightSubsystem.getTy()));
-                shooterSubsystem.setHoodServoPosition(limelightSubsystem.calculateHoodPositionTicks());
+                shooterSubsystem.setHoodServoPosition(hoodPosition);
                 if (shooterElapsedTime.seconds() >= FLYWHEEL_MOTOR_WAITING_TIME) {
                     shooterElapsedTime.reset();
                     currentShooterState = ShooterState.RUN_INTAKE;
@@ -66,6 +68,7 @@ public class ShooterCommand extends CommandBase {
                 break;
             case RUN_INTAKE:
                 intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER);
+                shooterSubsystem.setHoodServoPosition(hoodPosition);
                 if (shooterElapsedTime.seconds() >= INTAKE_RUNTIME) {
                     shooterElapsedTime.reset();
                     repetitions++;
@@ -75,45 +78,29 @@ public class ShooterCommand extends CommandBase {
                 break;
             case OPEN_GATE:
                 shooterSubsystem.setShooterGateServoPosition(GATE_OPEN);
+                shooterSubsystem.setHoodServoPosition(hoodPosition);
                 if (shooterElapsedTime.seconds() >= GATE_OPEN_TIME) {
                     shooterElapsedTime.reset();
                     currentShooterState = ShooterState.RUN_INTAKE_2;
                 }
                 break;
             case RUN_INTAKE_2:
-                intakeSubsystem.intake(INTAKE_MOTOR_POWER, INTAKE_MOTOR_POWER);
+                intakeSubsystem.intake(INTAKE_MOTOR_POWER_2, INTAKE_MOTOR_POWER_2);
+                shooterSubsystem.setHoodServoPosition(hoodPosition);
                 if (shooterElapsedTime.seconds() >= INTAKE_RUNTIME_2) {
                     shooterElapsedTime.reset();
                     intakeSubsystem.intake(0, 0);
-                    currentShooterState = ShooterState.CLOSE_GATE;
-                }
-                break;
-            case CLOSE_GATE:
-                shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
-                if (shooterElapsedTime.seconds() >= GATE_CLOSED_TIME) {
-                    shooterElapsedTime.reset();
                     currentShooterState = ShooterState.STOP_INTAKE;
                 }
                 break;
             case STOP_INTAKE:
+                shooterSubsystem.setHoodServoPosition(hoodPosition);
                 intakeSubsystem.intake(0, 0);
                 shooterElapsedTime.reset();
-                if (repetitions >= 3) {
-                    currentShooterState = ShooterState.STOP;
-                } else {
-                    currentShooterState = ShooterState.RUN_MOTOR_2;
-                }
-                break;
-            case RUN_MOTOR_2:
-                shooterSubsystem.setShooterMotorPower(FLYWHEEL_MOTOR_POWER);
-                shooterSubsystem.setTurretServoPosition(DEGREE_OFFSET_TO_SERVO_TICKS(limelightSubsystem.getTy()));
-                shooterSubsystem.setHoodServoPosition(limelightSubsystem.calculateHoodPositionTicks());
-                if (shooterElapsedTime.seconds() >= FLYWHEEL_MOTOR_WAITING_TIME_2) {
-                    shooterElapsedTime.reset();
-                    currentShooterState = ShooterState.RUN_INTAKE;
-                }
+                currentShooterState = ShooterState.STOP;
                 break;
             case STOP:
+                shooterSubsystem.setHoodServoPosition(hoodPosition);
                 shooterSubsystem.setShooterMotorPower(0);
                 intakeSubsystem.intake(0, 0);
                 shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
