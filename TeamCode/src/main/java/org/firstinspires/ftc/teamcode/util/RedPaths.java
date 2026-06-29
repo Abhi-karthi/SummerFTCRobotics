@@ -5,7 +5,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 
-public class RedPaths {
+public class RedPaths { // TODO: Fix red paths to not go over half way and to go slower when intaking (blue paths are updated)
     public PathChain INITIAL_TO_SCORE_1;
     public PathChain SCORE_1_TO_INTAKE_START_1;
     public PathChain INTAKE_START_1_TO_INTAKE_END_1;
@@ -40,6 +40,7 @@ public class RedPaths {
                 .build();
         INTAKE_START_1_TO_INTAKE_END_1 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.3))
                 .addPath(
                         new BezierLine(
                                 new Pose(100.000, 81.833),
@@ -50,6 +51,7 @@ public class RedPaths {
                 .build();
         INTAKE_END_1_TO_SCORE_2 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(1))
                 .addPath(
                         new BezierLine(
                                 new Pose(121.167, 81.667),
@@ -70,6 +72,7 @@ public class RedPaths {
                 .build();
         INTAKE_START_2_TO_INTAKE_END_2 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.3))
                 .addPath(
                         new BezierLine(
                                 new Pose(99.833, 59.000),
@@ -80,6 +83,7 @@ public class RedPaths {
                 .build();
         INTAKE_END_2_TO_SCORE_3 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(1))
                 .addPath(
                         new BezierLine(
                                 new Pose(121.470, 58.513),
@@ -100,6 +104,7 @@ public class RedPaths {
                 .build();
         INTAKE_START_3_TO_INTAKE_END_3 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.3))
                 .addPath(
                         new BezierLine(
                                 new Pose(100.333, 35.500),
@@ -110,6 +115,7 @@ public class RedPaths {
                 .build();
         INTAKE_END_3_TO_SCORE_4 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(1))
                 .addPath(
                         new BezierLine(
                                 new Pose(119.259, 34.632),

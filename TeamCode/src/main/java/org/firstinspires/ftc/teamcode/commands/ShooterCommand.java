@@ -52,6 +52,7 @@ public class ShooterCommand extends CommandBase {
         shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
         shooterSubsystem.setHoodServoPosition(HOOD_BOTTOM);
         hoodPosition = limelightSubsystem.calculateHoodPositionTicks();
+//        hoodPosition = shooterSubsystem.getHoodServoPosition();
     }
 
     @Override

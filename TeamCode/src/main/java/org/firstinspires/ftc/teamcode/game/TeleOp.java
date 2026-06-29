@@ -72,7 +72,7 @@ public class TeleOp extends OpMode {
         shooterSubsystem.setDefaultCommand( new RunCommand(
                 () -> {
                     shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
-                    shooterSubsystem.setHoodServoPosition(HOOD_BOTTOM);
+                    shooterSubsystem.setHoodServoPosition(shooterSubsystem.getHoodServoPosition());
                 },
                 shooterSubsystem
         ));

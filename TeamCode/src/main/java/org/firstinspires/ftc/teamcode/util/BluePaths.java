@@ -23,7 +23,7 @@ public class BluePaths {
                 .addPath(
                         new BezierLine(
                                 new Pose(55.333, 9.000),
-                                new Pose(70.500, 25.333)
+                                new Pose(56.38503401360545, 15.208163265306112)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(120))
@@ -47,9 +47,12 @@ public class BluePaths {
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.45))
+                .setTimeoutConstraint(5)
                 .build();
         INTAKE_END_1_TO_SCORE_2 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(1))
                 .addPath(
                         new BezierLine(
                                 new Pose(22.366, 82.604),
@@ -70,16 +73,19 @@ public class BluePaths {
                 .build();
         INTAKE_START_2_TO_INTAKE_END_2 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.3))
                 .addPath(
                         new BezierLine(
                                 new Pose(41.173, 59.501),
                                 new Pose(21.500, 59.167)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.45))
+                .setTimeoutConstraint(5)
                 .build();
         INTAKE_END_2_TO_SCORE_3 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(1))
                 .addPath(
                         new BezierLine(
                                 new Pose(21.500, 59.167),
@@ -100,20 +106,23 @@ public class BluePaths {
                 .build();
         INTAKE_START_3_TO_INTAKE_END_3 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.3))
                 .addPath(
                         new BezierLine(
                                 new Pose(46.126, 35.918),
                                 new Pose(21.993, 35.380)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(180))
+                .addParametricCallback(0.0, () -> follower.setMaxPower(0.45))
+                .setTimeoutConstraint(5)
                 .build();
         INTAKE_END_3_TO_SCORE_4 = follower
                 .pathBuilder()
+                .addParametricCallback(0.0, () -> follower.setMaxPower(1))
                 .addPath(
                         new BezierLine(
                                 new Pose(21.993, 35.380),
-                                new Pose(63.745, 21.202)
+                                new Pose(56.38503401360545, 15.208163265306112)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(120))
