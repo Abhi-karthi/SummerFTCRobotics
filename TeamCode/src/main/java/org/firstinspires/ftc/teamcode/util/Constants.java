@@ -20,12 +20,12 @@ public class Constants {
     public static double HOOD_CENTER = 0.5;
 
     public static double GATE_OPEN = 0.5;
-    public static double GATE_CLOSED = 0.25;
+    public static double GATE_CLOSED = 0.15;
     public static double GATE_OPEN_TIME = 0.1;
     public static double GATE_CLOSED_TIME = 0.1;
 
     public static double INTAKE_RUNTIME = 1.4;
-    public static double INTAKE_RUNTIME_2 = 0.2;
+    public static double INTAKE_RUNTIME_2 = 1;
     public static RevHubOrientationOnRobot.UsbFacingDirection controlHubUSBFacingDirection = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;
     public static RevHubOrientationOnRobot.LogoFacingDirection controlHubLogoFacingDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
 
@@ -44,7 +44,7 @@ public class Constants {
     }
     public static double SHOOTER_ACCURACY_THRESHOLD_TICKS = 1.0;
     public static double INTAKE_MOTOR_POWER = 0.6;
-
+    public static double INTAKE_MOTOR_POWER_2 = 0.9;
     public static Pose RED_AUTONOMOUS_INITIAL_POS = new Pose(86.166, 9, Math.toRadians(90));
     public static Pose BLUE_AUTONOMOUS_INITIAL_POS = new Pose(55.333, 9, Math.toRadians(90));
     public static double IMU_DIRECTION_OFFSET_BLUE = -Math.toRadians(90);
