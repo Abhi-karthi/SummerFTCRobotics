@@ -11,7 +11,7 @@ public class PracticeSubsystem extends SubsystemBase {
     private Telemetry telemetry;
 
     public PracticeSubsystem(HardwareMap hardwareMap, Telemetry telemetry) {
-        exampleMotor = hardwareMap.get(DcMotor.class, "exampleMotor1");
+        exampleMotor = hardwareMap.get(DcMotor.class, "exampleMotor");
         this.telemetry = telemetry;
     }
 
