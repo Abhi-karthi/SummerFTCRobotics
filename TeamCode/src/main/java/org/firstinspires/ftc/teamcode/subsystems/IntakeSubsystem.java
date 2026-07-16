@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
@@ -10,7 +12,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private final DcMotor intake1, intake2;
     private final Telemetry telemetry;
 
-    public IntakeSubsystem(HardwareMap hardwareMap, Telemetry telemetry) {
+    public IntakeSubsystem(@NonNull HardwareMap hardwareMap, Telemetry telemetry) {
         intake1 = hardwareMap.get(DcMotor.class, "intake1");
         intake2 = hardwareMap.get(DcMotor.class, "intake2");
 
