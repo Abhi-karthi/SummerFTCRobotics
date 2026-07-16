@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.commands;
 import static org.firstinspires.ftc.teamcode.util.Constants.DEGREE_OFFSET_TO_SERVO_TICKS;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_POWER;
 import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_WAITING_TIME;
-import static org.firstinspires.ftc.teamcode.util.Constants.FLYWHEEL_MOTOR_WAITING_TIME_2;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_CLOSED_TIME;
 import static org.firstinspires.ftc.teamcode.util.Constants.GATE_OPEN;
@@ -29,7 +28,6 @@ public class ShooterCommand extends CommandBase {
     private final ElapsedTime shooterElapsedTime;
     private enum ShooterState { RUN_MOTOR, RUN_INTAKE, OPEN_GATE, RUN_INTAKE_2, CLOSE_GATE, STOP_INTAKE, RUN_MOTOR_2, STOP}
     private ShooterState currentShooterState;
-    private int repetitions;
     private double hoodPosition;
     public ShooterCommand(ShooterSubsystem shooterSubsystem, LimelightSubsystem limelightSubsystem, IntakeSubsystem intakeSubsystem) {
         currentShooterState = ShooterState.RUN_MOTOR;
@@ -39,7 +37,6 @@ public class ShooterCommand extends CommandBase {
         this.limelightSubsystem = limelightSubsystem;
         this.intakeSubsystem = intakeSubsystem;
 
-        repetitions = 0;
         addRequirements(shooterSubsystem, intakeSubsystem, limelightSubsystem);
     }
 
@@ -47,7 +44,6 @@ public class ShooterCommand extends CommandBase {
     public void initialize() {
         shooterElapsedTime.reset();
         currentShooterState = ShooterState.RUN_MOTOR;
-        repetitions = 0;
 
         shooterSubsystem.setShooterGateServoPosition(GATE_CLOSED);
         shooterSubsystem.setHoodServoPosition(HOOD_BOTTOM);
@@ -72,7 +68,6 @@ public class ShooterCommand extends CommandBase {
                 shooterSubsystem.setHoodServoPosition(hoodPosition);
                 if (shooterElapsedTime.seconds() >= INTAKE_RUNTIME) {
                     shooterElapsedTime.reset();
-                    repetitions++;
                     intakeSubsystem.intake(0, 0);
                     currentShooterState = ShooterState.OPEN_GATE;
                 }
