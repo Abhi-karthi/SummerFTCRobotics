@@ -26,7 +26,6 @@ public class ShooterSubsystem extends SubsystemBase {
         shooter2.setDirection(DcMotor.Direction.REVERSE);
         shooter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         this.telemetry = telemetry;
 
@@ -51,9 +50,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public double getHoodServoPosition() {
         return hoodServo.getPosition();
     }
-    public void setHoodServoPosition(double power) {
-        hoodServo.setPosition(power);
-    }
+    public void setHoodServoPosition(double power) { hoodServo.setPosition(power); }
     public void setTurretServoPosition(double position) { turretServo.setPosition(position); }
     public double getTurretServoPosition() { return turretServo.getPosition(); }
 }
